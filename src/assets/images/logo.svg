@@ -1,0 +1,14 @@
+<svg width="150" height="50" viewBox="0 0 150 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_1_2)">
+    <path d="M30 10L45 40H15L30 10Z" fill="#4a55fd"/>
+    <path d="M30 5L50 45H10L30 5Z" stroke="#0a1232" stroke-width="2"/>
+    <path d="M65 20H55V30H65V20Z" fill="#4a55fd"/>
+    <text x="75" y="30" font-family="Arial" font-weight="bold" font-size="20" fill="#0a1232">PLANE</text>
+    <text x="54" y="30" font-family="Arial" font-weight="bold" font-size="20" fill="#0a1232">FT</text>
+  </g>
+  <defs>
+    <clipPath id="clip0_1_2">
+      <rect width="150" height="50" fill="white"/>
+    </clipPath>
+  </defs>
+</svg> 

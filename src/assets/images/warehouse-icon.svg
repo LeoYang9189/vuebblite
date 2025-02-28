@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 仓库 -->
+  <path d="M10 55V30L40 15L70 30V55H10Z" fill="#1e5aa0" fill-opacity="0.05" stroke="#1e5aa0" stroke-width="1"/>
+  <!-- 仓库门 -->
+  <rect x="32" y="35" width="16" height="20" fill="#1e5aa0" fill-opacity="0.1" stroke="#1e5aa0" stroke-width="1"/>
+  <!-- 屋顶 -->
+  <line x1="40" y1="15" x2="40" y2="8" stroke="#1e5aa0" stroke-width="1"/>
+  <circle cx="40" cy="6" r="2" fill="#1e5aa0" fill-opacity="0.2" stroke="#1e5aa0" stroke-width="1"/>
+  <!-- 货箱 -->
+  <rect x="55" y="40" width="10" height="8" fill="#1e5aa0" fill-opacity="0.15" stroke="#1e5aa0" stroke-width="1"/>
+  <rect x="52" y="48" width="16" height="7" fill="#1e5aa0" fill-opacity="0.2" stroke="#1e5aa0" stroke-width="1"/>
+  <!-- 小货箱 -->
+  <rect x="18" y="45" width="8" height="10" fill="#1e5aa0" fill-opacity="0.15" stroke="#1e5aa0" stroke-width="1"/>
+</svg> 
