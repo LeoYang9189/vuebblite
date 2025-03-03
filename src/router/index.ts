@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/tracking",
     name: "Tracking",
-    component: TrackingPage,
+    component: () => import("@/views/TrackingPage.vue"),
   },
   {
     path: "/service",
@@ -44,32 +44,32 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "Login",
-    component: LoginPage,
+    component: () => import("@/views/LoginPage.vue"),
   },
   {
     path: "/register",
     name: "Register",
-    component: RegisterPage,
+    component: () => import("@/views/RegisterPage.vue"),
   },
   {
     path: "/dashboard",
     name: "Dashboard",
-    component: DashboardPage,
+    component: () => import("@/views/DashboardPage.vue"),
     children: [
       {
         path: "profile",
         name: "Profile",
-        component: ProfilePage,
+        component: () => import("@/views/ProfilePage.vue"),
       },
       {
         path: "company/certification",
         name: "CompanyCertification",
-        component: CompanyCertification,
+        component: () => import("@/views/dashboard/company/CompanyCertification.vue"),
       },
       {
         path: "company/info",
         name: "CompanyInfo",
-        component: CompanyInfo,
+        component: () => import("@/views/dashboard/company/CompanyInfo.vue"),
       },
       {
         path: "company/account",
@@ -84,7 +84,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "orders/forecast",
         name: "ForecastOrders",
-        component: ForecastOrders,
+        component: () => import("@/views/dashboard/orders/ForecastOrders.vue"),
         meta: {
           title: "预报订单",
           requiresAuth: true,
