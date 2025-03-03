@@ -6,9 +6,12 @@ import LoginPage from "@/views/LoginPage.vue";
 import RegisterPage from "@/views/RegisterPage.vue";
 import DashboardPage from "@/views/DashboardPage.vue";
 import ProfilePage from "@/views/ProfilePage.vue";
-import CompanyCertification from "@/views/dashboard/company/CompanyCertification.vue";
-import CompanyInfo from "@/views/dashboard/company/CompanyInfo.vue";
-import { ForecastOrders } from "@/views/dashboard/orders";
+import CompanyVerificationPage from "@/views/CompanyVerificationPage.vue";
+import CompanyAccountListPage from "@/views/CompanyAccountListPage.vue";
+import ShippingOrderPage from "@/views/ShippingOrderPage.vue";
+// import CompanyCertification from "@/views/dashboard/company/CompanyCertification.vue";
+// import CompanyInfo from "@/views/dashboard/company/CompanyInfo.vue";
+// import { ForecastOrders } from "@/views/dashboard/orders";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -55,40 +58,170 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dashboard",
     name: "Dashboard",
     component: () => import("@/views/DashboardPage.vue"),
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "profile",
         name: "Profile",
         component: () => import("@/views/ProfilePage.vue"),
+        meta: {
+          title: "个人资料",
+          requiresAuth: true,
+        },
       },
       {
         path: "company/certification",
         name: "CompanyCertification",
-        component: () => import("@/views/dashboard/company/CompanyCertification.vue"),
+        component: () => import("@/views/CompanyVerificationPage.vue"),
+        meta: {
+          title: "企业认证",
+          requiresAuth: true,
+        },
       },
       {
         path: "company/info",
         name: "CompanyInfo",
-        component: () => import("@/views/dashboard/company/CompanyInfo.vue"),
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "我的企业",
+          requiresAuth: true,
+        },
       },
       {
         path: "company/account",
         name: "CompanyAccount",
-        component: () => import("@/views/dashboard/company/CompanyAccount.vue"),
+        component: () => import("@/views/CompanyAccountListPage.vue"),
         meta: {
           title: "企业账户",
           requiresAuth: true,
-          roles: ["admin", "company"],
         },
       },
       {
         path: "orders/forecast",
         name: "ForecastOrders",
-        component: () => import("@/views/dashboard/orders/ForecastOrders.vue"),
+        component: () => import("@/views/ShippingOrderPage.vue"),
         meta: {
           title: "预报订单",
           requiresAuth: true,
-          roles: ["admin", "company"],
+        },
+      },
+      {
+        path: "finance/bill-list",
+        name: "BillList",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "账单列表",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "finance/foreign-bill",
+        name: "ForeignBill",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "国外账单",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "finance/invoice-list",
+        name: "InvoiceList",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "发票列表",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "enterprise/certified",
+        name: "CertifiedEnterprise",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "已认证企业",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "enterprise/pending",
+        name: "PendingEnterprise",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "待审核企业",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "enterprise/account",
+        name: "EnterpriseAccount",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "企业账号",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "system/operation-account",
+        name: "OperationAccount",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "运营账号",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "system/permission",
+        name: "PermissionManagement",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "权限管理",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "system/config",
+        name: "CustomConfig",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "个性化配置",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "operation/news-category",
+        name: "NewsCategory",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "资讯类别",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "operation/news-management",
+        name: "NewsManagement",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "资讯管理",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "message/inbox",
+        name: "Inbox",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "收件箱",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "message/settings",
+        name: "MessageSettings",
+        component: () => import("@/components/UnderConstruction.vue"),
+        meta: {
+          title: "消息设置",
+          requiresAuth: true,
         },
       },
       {

@@ -39,7 +39,9 @@
         <a-sub-menu key="3">
           <template #icon><icon-dashboard /></template>
           <template #title>订单中心</template>
-          <a-menu-item key="3-1">预报订单</a-menu-item>
+          <a-menu-item key="3-1">
+            <router-link to="/dashboard/orders/forecast">预报订单</router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <!-- 财务中心子菜单 -->

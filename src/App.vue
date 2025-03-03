@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <TheHeader />
-    <main class="main-content">
+    <TheHeader v-if="!isInDashboard" />
+    <main class="main-content" :class="{ 'dashboard-view': isInDashboard }">
       <router-view />
     </main>
-    <TheFooter />
-    <FloatingService />
+    <TheFooter v-if="!isInDashboard" />
+    <FloatingService v-if="!isInDashboard" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useRoute } from "vue-router";
 import TheHeader from "@/components/layout/TheHeader.vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
 import FloatingService from "@/components/layout/FloatingService.vue";
@@ -22,6 +23,17 @@ export default defineComponent({
     TheFooter,
     FloatingService,
   },
+  setup() {
+    const route = useRoute();
+    
+    const isInDashboard = computed(() => {
+      return route.path.startsWith('/dashboard');
+    });
+    
+    return {
+      isInDashboard
+    };
+  }
 });
 </script>
 
@@ -64,5 +76,10 @@ nav {
   flex: 1;
   padding-top: 0;
   min-height: calc(100vh - 300px);
+  
+  &.dashboard-view {
+    min-height: 100vh;
+    padding: 0;
+  }
 }
 </style>

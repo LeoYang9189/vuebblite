@@ -45,7 +45,29 @@
             </ul>
           </nav>
           <div class="action-btn">
-            <a href="#" class="btn btn-primary">注册/登录</a>
+            <template v-if="isLoggedIn">
+              <a-dropdown trigger="click">
+                <div class="user-dropdown">
+                  <span class="username">{{ username }}</span>
+                  <icon-down />
+                </div>
+                <template #content>
+                  <a-doption @click="goToDashboard">
+                    <template #icon><icon-dashboard /></template>
+                    工作台
+                  </a-doption>
+                  <a-doption @click="goToProfile">
+                    <template #icon><icon-user /></template>
+                    个人资料
+                  </a-doption>
+                  <a-doption @click="handleLogout">
+                    <template #icon><icon-export /></template>
+                    退出登录
+                  </a-doption>
+                </template>
+              </a-dropdown>
+            </template>
+            <router-link v-else to="/login" class="btn btn-primary">注册/登录</router-link>
           </div>
         </div>
       </div>
@@ -54,18 +76,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed } from "vue";
-import { useRoute } from "vue-router";
+import { defineComponent, ref, onMounted, computed, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import LanguageSelector from "@/components/common/LanguageSelector.vue";
+import { IconDashboard, IconUser, IconExport, IconDown } from "@arco-design/web-vue/es/icon";
+import { Message } from "@arco-design/web-vue";
 
 export default defineComponent({
   name: "TheHeader",
   components: {
     LanguageSelector,
+    IconDashboard,
+    IconUser,
+    IconExport,
+    IconDown
   },
   setup() {
     const isScrolled = ref(false);
     const route = useRoute();
+    const router = useRouter();
+    const isLoggedIn = ref(false);
+    const username = ref("");
 
     const currentRoute = computed(() => route.path);
 
@@ -73,13 +104,57 @@ export default defineComponent({
       isScrolled.value = window.scrollY > 100;
     };
 
+    const checkLoginStatus = () => {
+      const loginStatus = localStorage.getItem("isLoggedIn");
+      const storedUsername = localStorage.getItem("username");
+      
+      isLoggedIn.value = loginStatus === "true";
+      if (storedUsername) {
+        username.value = storedUsername;
+      }
+    };
+
+    const goToDashboard = () => {
+      router.push("/dashboard");
+    };
+    
+    const goToProfile = () => {
+      router.push("/dashboard/profile");
+    };
+    
+    const handleLogout = () => {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("username");
+      localStorage.removeItem("userRole");
+      
+      isLoggedIn.value = false;
+      username.value = "";
+      
+      Message.success("已退出登录");
+      router.push("/");
+    };
+
     onMounted(() => {
       window.addEventListener("scroll", handleScroll);
+      checkLoginStatus();
+      
+      // 监听存储变化，实时更新登录状态
+      window.addEventListener("storage", checkLoginStatus);
+    });
+
+    // 监听路由变化，更新登录状态
+    watch(route, () => {
+      checkLoginStatus();
     });
 
     return {
       isScrolled,
       currentRoute,
+      isLoggedIn,
+      username,
+      goToDashboard,
+      goToProfile,
+      handleLogout
     };
   },
 });
@@ -176,5 +251,17 @@ export default defineComponent({
 .nav-menu {
   position: relative; /* 确保创建堆叠上下文 */
   z-index: 10; /* 较低的z-index值 */
+}
+
+/* 用户下拉菜单样式 */
+.user-dropdown {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.username {
+  margin-right: 4px;
+  font-weight: 500;
 }
 </style>
