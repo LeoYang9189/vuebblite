@@ -1,5 +1,5 @@
 <template>
-  <div class="language-selector">
+  <div class="language-selector" ref="selectorRef">
     <div class="current-lang" @click="toggleOptions">
       <i class="fas fa-globe"></i>
       <span class="current-lang-text">{{ currentLanguage }}</span>
@@ -8,19 +8,23 @@
         style="font-size: 10px; background: none; width: auto; height: auto"
       ></i>
     </div>
-    <div class="lang-options" :class="{ show: showOptions }">
-      <a
-        v-for="lang in languages"
-        :key="lang.code"
-        href="#"
-        class="lang-option"
-        :class="{ active: currentLangCode === lang.code }"
-        :data-lang="lang.code"
-        @click.prevent="changeLanguage(lang)"
-      >
-        {{ lang.name }}
-      </a>
-    </div>
+
+    <!-- 使用Teleport将下拉菜单移动到body元素下 -->
+    <teleport to="body">
+      <div class="lang-options" :class="{ show: showOptions }" :style="dropdownStyle">
+        <a
+          v-for="lang in languages"
+          :key="lang.code"
+          href="#"
+          class="lang-option"
+          :class="{ active: currentLangCode === lang.code }"
+          :data-lang="lang.code"
+          @click.prevent="changeLanguage(lang)"
+        >
+          {{ lang.name }}
+        </a>
+      </div>
+    </teleport>
   </div>
 </template>
 
@@ -40,6 +44,7 @@ export default defineComponent({
     const store = useStore();
     const { locale } = useI18n();
     const showOptions = ref(false);
+    const selectorRef = ref<HTMLElement | null>(null);
 
     const languages: Language[] = [
       { name: "中文", code: "zh" },
@@ -82,6 +87,19 @@ export default defineComponent({
       document.removeEventListener("click", handleOutsideClick);
     });
 
+    const dropdownStyle = computed(() => {
+      if (!selectorRef.value) return {};
+
+      const rect = selectorRef.value.getBoundingClientRect();
+      return {
+        position: "fixed",
+        top: `${rect.bottom}px`,
+        left: `${rect.left}px`,
+        width: `${rect.width}px`,
+        zIndex: 1000, // 高z-index确保在其他元素之上
+      };
+    });
+
     return {
       languages,
       currentLangCode,
@@ -89,15 +107,68 @@ export default defineComponent({
       showOptions,
       toggleOptions,
       changeLanguage,
+      dropdownStyle,
+      selectorRef,
     };
   },
 });
 </script>
 
 <style scoped>
+.language-selector {
+  position: relative;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.current-lang {
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.current-lang-text {
+  margin: 0 5px;
+}
+
+.lang-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 10px 0;
+  min-width: 120px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s;
+  z-index: 1000;
+}
+
 .lang-options.show {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+.lang-option {
+  display: block;
+  padding: 8px 15px;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.lang-option:hover,
+.lang-option.active {
+  background-color: #f5f5f5;
+  color: #0056b3;
+}
+
+.fa-globe {
+  font-size: 14px;
+  color: #1e5aa0;
 }
 </style>

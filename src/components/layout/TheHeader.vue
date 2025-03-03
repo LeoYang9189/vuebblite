@@ -167,4 +167,14 @@ export default defineComponent({
   padding: 6px 15px;
   font-size: 14px;
 }
+
+.nav-container {
+  /* 同样确保不限制overflow */
+}
+
+/* 添加一个新样式确保导航层级适当 */
+.nav-menu {
+  position: relative; /* 确保创建堆叠上下文 */
+  z-index: 10; /* 较低的z-index值 */
+}
 </style>
