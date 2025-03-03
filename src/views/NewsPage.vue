@@ -92,10 +92,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "NewsPage",
   setup() {
+    const router = useRouter();
+
     // 当前页码
     const currentPage = ref(1);
     const itemsPerPage = 9; // 每页显示9个卡片
@@ -181,8 +184,7 @@ export default defineComponent({
 
     // 跳转到新闻详情
     const goToNewsDetail = (id: number) => {
-      // 实际应用中跳转到详情页
-      console.log("跳转到新闻ID:", id);
+      router.push(`/news/${id}`);
     };
 
     // 页码切换

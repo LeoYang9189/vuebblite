@@ -393,11 +393,8 @@ export default defineComponent({
 
     const router = useRouter();
 
-    const navigateToNews = (newsId: number | string) => {
-      router.push({
-        path: "/news",
-        query: { id: newsId },
-      });
+    const navigateToNews = (id: number) => {
+      router.push(`/news/${id}`);
     };
 
     const searchQuery = ref("");
