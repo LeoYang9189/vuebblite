@@ -9,6 +9,14 @@ import ProfilePage from "@/views/ProfilePage.vue";
 import CompanyVerificationPage from "@/views/CompanyVerificationPage.vue";
 import CompanyAccountListPage from "@/views/CompanyAccountListPage.vue";
 import ShippingOrderPage from "@/views/ShippingOrderPage.vue";
+import BillingListPage from "@/views/BillingListPage.vue";
+import InvoiceListPage from "@/views/InvoiceListPage.vue";
+import CompanyVerifiedListPage from "@/views/CompanyVerifiedListPage.vue";
+import CompanyPendingListPage from "@/views/CompanyPendingListPage.vue";
+import CompanyUserListPage from "@/views/CompanyUserListPage.vue";
+import OperationAccountPage from "@/views/OperationAccountPage.vue";
+import NewsCategoryPage from "@/views/NewsCategoryPage.vue";
+import CompanyInfoPage from "@/views/CompanyInfoPage.vue";
 // import CompanyCertification from "@/views/dashboard/company/CompanyCertification.vue";
 // import CompanyInfo from "@/views/dashboard/company/CompanyInfo.vue";
 // import { ForecastOrders } from "@/views/dashboard/orders";
@@ -83,7 +91,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "company/info",
         name: "CompanyInfo",
-        component: () => import("@/components/UnderConstruction.vue"),
+        component: () => import("@/views/CompanyInfoPage.vue"),
         meta: {
           title: "我的企业",
           requiresAuth: true,
@@ -110,7 +118,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "finance/bill-list",
         name: "BillList",
-        component: () => import("@/components/UnderConstruction.vue"),
+        component: () => import("@/views/BillingListPage.vue"),
         meta: {
           title: "账单列表",
           requiresAuth: true,
@@ -128,16 +136,16 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "finance/invoice-list",
         name: "InvoiceList",
-        component: () => import("@/components/UnderConstruction.vue"),
+        component: () => import("@/views/InvoiceListPage.vue"),
         meta: {
           title: "发票列表",
           requiresAuth: true,
         },
       },
       {
-        path: "enterprise/certified",
-        name: "CertifiedEnterprise",
-        component: () => import("@/components/UnderConstruction.vue"),
+        path: "company/verified",
+        name: "CompanyVerified",
+        component: () => import("@/views/CompanyVerifiedListPage.vue"),
         meta: {
           title: "已认证企业",
           requiresAuth: true,
@@ -146,7 +154,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "enterprise/pending",
         name: "PendingEnterprise",
-        component: () => import("@/components/UnderConstruction.vue"),
+        component: () => import("@/views/CompanyPendingListPage.vue"),
         meta: {
           title: "待审核企业",
           requiresAuth: true,
@@ -155,7 +163,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "enterprise/account",
         name: "EnterpriseAccount",
-        component: () => import("@/components/UnderConstruction.vue"),
+        component: () => import("@/views/CompanyUserListPage.vue"),
         meta: {
           title: "企业账号",
           requiresAuth: true,
@@ -164,7 +172,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "system/operation-account",
         name: "OperationAccount",
-        component: () => import("@/components/UnderConstruction.vue"),
+        component: () => import("@/views/OperationAccountPage.vue"),
         meta: {
           title: "运营账号",
           requiresAuth: true,
@@ -191,7 +199,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "operation/news-category",
         name: "NewsCategory",
-        component: () => import("@/components/UnderConstruction.vue"),
+        component: () => import("@/views/NewsCategoryPage.vue"),
         meta: {
           title: "资讯类别",
           requiresAuth: true,
@@ -226,7 +234,12 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "",
+        name: "DashboardDefault",
         redirect: "/dashboard/profile",
+      },
+      {
+        path: "enterprise/certified",
+        redirect: "/dashboard/company/verified",
       },
     ],
   },

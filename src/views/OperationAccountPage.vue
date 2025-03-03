@@ -1,6 +1,6 @@
 <template>
   <div class="verification-container">
-    <h2 class="page-title">预报订单</h2>
+    <h2 class="page-title">运营账号列表</h2>
 
     <!-- 筛选区域 -->
     <div class="filter-container">
@@ -8,117 +8,66 @@
         <!-- 第一行筛选区域 - 调整为3列均匀布局 -->
         <div class="filter-row">
           <div class="filter-item">
-            <span class="filter-label">业务参考号</span>
-            <a-input v-model="formData.referenceNo" placeholder="请输入" />
+            <span class="filter-label">运营账号</span>
+            <a-input v-model="formData.operationAccount" placeholder="请输入" />
           </div>
           <div class="filter-item">
-            <span class="filter-label">HBL No.</span>
-            <div class="input-with-tooltip">
-              <a-input v-model="formData.hblNo" placeholder="请输入" />
-              <a-tooltip content="HBL是House Bill of Lading的缩写，指由货运代理签发的提单" position="top">
-                <icon-question-circle class="tooltip-icon" />
-              </a-tooltip>
-            </div>
+            <span class="filter-label">手机</span>
+            <a-input v-model="formData.phone" placeholder="请输入" />
           </div>
           <div class="filter-item">
-            <span class="filter-label">MBL No.</span>
-            <a-input v-model="formData.mblNo" placeholder="请输入" />
+            <span class="filter-label">QQ</span>
+            <a-input v-model="formData.qq" placeholder="请输入" />
           </div>
         </div>
         
         <!-- 第二行筛选区域 - 使用展开/缩起功能 -->
         <div class="filter-row" v-show="isExpanded">
           <div class="filter-item">
-            <span class="filter-label">Type</span>
-            <a-select v-model="formData.type" placeholder="请选择">
-              <a-option value="FCL">FCL</a-option>
-              <a-option value="LCL">LCL</a-option>
-              <a-option value="AIR">AIR</a-option>
+            <span class="filter-label">关联个人用户</span>
+            <a-input v-model="formData.relatedUser" placeholder="请输入" />
+          </div>
+          <div class="filter-item">
+            <span class="filter-label">角色</span>
+            <a-select v-model="formData.role" placeholder="请选择">
+              <a-option value="超级管理员">超级管理员</a-option>
+              <a-option value="运营管理员">运营管理员</a-option>
+              <a-option value="客服人员">客服人员</a-option>
             </a-select>
           </div>
           <div class="filter-item">
-            <span class="filter-label">Original ETD</span>
-            <a-range-picker 
-              v-model="formData.originalEtd" 
-              style="width: 100%"
-            />
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">Current ETA</span>
-            <a-range-picker 
-              v-model="formData.currentEta"
-              style="width: 100%" 
-            />
+            <span class="filter-label">状态</span>
+            <a-select v-model="formData.status" placeholder="请选择">
+              <a-option value="有效">有效</a-option>
+              <a-option value="无效">无效</a-option>
+            </a-select>
           </div>
         </div>
 
         <!-- 第三行筛选区域 -->
         <div class="filter-row" v-show="isExpanded">
           <div class="filter-item">
-            <span class="filter-label">起始港</span>
-            <a-input v-model="formData.startPort" placeholder="请输入" />
+            <span class="filter-label">创建时间</span>
+            <a-range-picker 
+              v-model="formData.createTime" 
+              style="width: 100%"
+            />
           </div>
           <div class="filter-item">
-            <span class="filter-label">目的港</span>
-            <a-input v-model="formData.endPort" placeholder="请输入" />
+            <span class="filter-label">最后登录时间</span>
+            <a-range-picker 
+              v-model="formData.lastLoginTime"
+              style="width: 100%" 
+            />
           </div>
           <div class="filter-item">
-            <span class="filter-label">订舱状态</span>
-            <a-select v-model="formData.status" placeholder="请选择">
-              <a-option value="确定">确定</a-option>
-              <a-option value="取消">取消</a-option>
+            <span class="filter-label">所属公司</span>
+            <a-select v-model="formData.company" placeholder="请选择">
+              <a-option value="">全部</a-option>
+              <a-option value="总部">总部</a-option>
+              <a-option value="上海分公司">上海分公司</a-option>
+              <a-option value="北京分公司">北京分公司</a-option>
             </a-select>
-          </div>
-        </div>
-        
-        <!-- 第四行筛选区域 -->
-        <div class="filter-row" v-show="isExpanded">
-          <div class="filter-item">
-            <span class="filter-label">海外客服</span>
-            <a-select v-model="formData.overseasSupport" placeholder="请选择">
-              <a-option value="请选择">请选择</a-option>
-            </a-select>
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">发货人</span>
-            <a-input v-model="formData.shipper" placeholder="请输入" />
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">收货人</span>
-            <a-input v-model="formData.consignee" placeholder="请输入" />
-          </div>
-        </div>
-        
-        <!-- 第五行筛选区域 -->
-        <div class="filter-row" v-show="isExpanded">
-          <div class="filter-item">
-            <span class="filter-label">船名</span>
-            <a-input v-model="formData.vesselName" placeholder="请输入" />
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">箱型箱量</span>
-            <a-input v-model="formData.containerInfo" placeholder="请输入" />
-          </div>
-          <div class="filter-item">
-            <!-- 空白项，保持布局一致 -->
-          </div>
-        </div>
-
-        <!-- 第六行筛选区域（新增） -->
-        <div class="filter-row" v-show="isExpanded">
-          <div class="filter-item">
-            <span class="filter-label">HDS</span>
-            <a-select v-model="formData.hds" placeholder="请选择">
-              <a-option value="YES">YES</a-option>
-              <a-option value="NO">NO</a-option>
-            </a-select>
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">备注</span>
-            <a-input v-model="formData.remark" placeholder="请输入" />
-          </div>
-          <div class="filter-item">
-            <!-- 空白项，保持布局一致 -->
           </div>
         </div>
       </div>
@@ -153,13 +102,9 @@
         </a-button>
       </div>
       <div class="action-right">
-        <a-button type="primary" style="margin-right: 10px;" @click="handleExportList">
-          <template #icon><icon-download /></template>
-          导出列表
-        </a-button>
-        <a-button @click="handleUploadClearanceData">
-          <template #icon><icon-upload /></template>
-          上传清关资料
+        <a-button type="primary" @click="handleAddAccount">
+          <template #icon><icon-plus /></template>
+          新增运营账号
         </a-button>
       </div>
     </div>
@@ -167,7 +112,7 @@
     <!-- 表格区域 -->
     <div class="table-container">
       <a-table 
-        :data="orderList" 
+        :data="accountList" 
         :pagination="false"
         :bordered="{ cell: true }"
         :stripe="false"
@@ -177,23 +122,9 @@
         :columns="visibleColumns"
         @sorter-change="handleSorterChange"
       >
-        <template #th-extra="{ column }">
-          <a-tooltip content="排序" position="top" v-if="column.dataIndex && column.dataIndex !== 'operations'">
-            <icon-sort class="sort-icon" />
-          </a-tooltip>
-        </template>
-        <!-- HBL No.列标题插槽 -->
-        <template #hbl-title>
-          <div class="title-with-tooltip">
-            <span>HBL No.</span>
-            <a-tooltip content="HBL是House Bill of Lading的缩写，指由货运代理签发的提单" position="top">
-              <icon-question-circle class="title-tooltip-icon" />
-            </a-tooltip>
-          </div>
-        </template>
         <template #status="{ record }">
           <a-tag
-            :color="record.status === '确定' ? 'green' : 'red'"
+            :color="record.status === '有效' ? 'green' : 'red'"
             size="small"
           >
             {{ record.status }}
@@ -201,11 +132,14 @@
         </template>
         <template #operations="{ record }">
           <div class="operation-buttons">
-            <a-button type="text" size="small" @click="handleViewDetail(record)">
-              查看详情
+            <a-button type="text" size="small" @click="handleSetRole(record)">
+              设置角色
             </a-button>
-            <a-button type="text" size="small" @click="handleClearanceData(record)">
-              清关资料
+            <a-button type="text" size="small" @click="handleUnbindUser(record)" v-if="record.relatedUser">
+              解绑用户
+            </a-button>
+            <a-button type="text" size="small" @click="handleDisable(record)">
+              停用
             </a-button>
           </div>
         </template>
@@ -214,7 +148,7 @@
       <!-- 分页 -->
       <div class="pagination-container">
         <div class="pagination-left">
-          <!-- 删除最左边的统计条数显示 -->
+          <!-- 统计条数显示 -->
         </div>
         <div class="pagination-right">
           <a-pagination 
@@ -226,7 +160,6 @@
           >
             <template #total>
               <span>共 {{ pagination.total }} 条</span>
-              <!-- 保留这里的页码大小选择器，删除右侧独立的选择器 -->
               <a-select v-model="pagination.pageSize" style="width: 120px; margin-left: 16px" size="small">
                 <a-option :value="10">10 条/页</a-option>
                 <a-option :value="20">20 条/页</a-option>
@@ -299,6 +232,7 @@ import { defineComponent, reactive, ref, computed } from "vue";
 import { Message } from "@arco-design/web-vue";
 import type { TableColumnData, TableSortable } from "@arco-design/web-vue";
 import { 
+  IconPlus, 
   IconSearch, 
   IconUp, 
   IconDown, 
@@ -307,10 +241,7 @@ import {
   IconSettings,
   IconDragDotVertical,
   IconSort,
-  IconInfoCircle,
-  IconDownload,
-  IconUpload,
-  IconQuestionCircle
+  IconInfoCircle
 } from "@arco-design/web-vue/es/icon";
 
 interface ColumnConfig extends Omit<TableColumnData, 'checked'> {
@@ -318,8 +249,9 @@ interface ColumnConfig extends Omit<TableColumnData, 'checked'> {
 }
 
 export default defineComponent({
-  name: "ShippingOrderPage",
+  name: "OperationAccountPage",
   components: {
+    IconPlus,
     IconSearch,
     IconUp,
     IconDown,
@@ -328,158 +260,160 @@ export default defineComponent({
     IconSettings,
     IconDragDotVertical,
     IconSort,
-    IconInfoCircle,
-    IconDownload,
-    IconUpload,
-    IconQuestionCircle
+    IconInfoCircle
   },
   setup() {
     // 表单数据
     const formData = reactive({
-      referenceNo: "", // 业务参考号
-      hblNo: "", // HBL No.
-      mblNo: "", // MBL No.
-      type: "", // 类型
-      originalEtd: [] as (string | number | Date)[], // 原始ETD
-      currentEta: [] as (string | number | Date)[], // 当前ETA
-      startPort: "", // 起始港
-      endPort: "", // 目的港
-      status: "", // 订舱状态
-      overseasSupport: "", // 海外客服
-      shipper: "", // 发货人
-      consignee: "", // 收货人
-      vesselName: "", // 船名
-      containerInfo: "", // 箱型箱量
-      quantity: "", // 数量
-      weight: "", // 毛重
-      volume: "", // 体积
-      hds: "", // HDS
-      remark: "" // 备注
+      operationAccount: "",
+      phone: "",
+      qq: "",
+      relatedUser: "",
+      role: "",
+      status: "",
+      createTime: [] as (string | number | Date)[],
+      lastLoginTime: [] as (string | number | Date)[],
+      company: ""
     });
 
     // 分页设置
     const pagination = reactive({
       current: 1,
       pageSize: 10,
-      total: 15
+      total: 10
     });
 
-    // 订单列表数据
-    const orderList = reactive([
+    // 账号列表数据
+    const accountList = reactive([
       {
         id: 1,
-        hblNo: "YXY25031451",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "BAO LAI COMPANY",
-        consignee: "CC JAPAN CO., LTD.",
-        startPort: "SHANGHAI, CHINA",
-        endPort: "OSAKA, JAPAN",
-        vesselVoyage: "MITRA BHUM V.230T",
-        originEtd: "03-11 Tue",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*40GP",
-        quantity: "0",
-        weight: "0.000 KGS",
-        volume: "0.000 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:34:18"
+        operationAccount: "takahashi@toyofast.jp",
+        status: "有效",
+        relatedUser: "",
+        phone: "",
+        qq: "",
+        role: "运营管理员",
+        company: "总部",
+        updateTime: "2025-02-05 16:01:55",
+        createTime: "2025-01-05 10:30:00",
+        lastLoginTime: "2025-02-05 15:45:30"
       },
       {
         id: 2,
-        hblNo: "DS25009",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "",
-        consignee: "",
-        startPort: "SHANGHAI, CHINA",
-        endPort: "HIROSHIMA, JAPAN",
-        vesselVoyage: "",
-        originEtd: "03-11 Tue",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*20GP",
-        quantity: "0CTNS",
-        weight: "0.000 KGS",
-        volume: "0.000 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:43:32"
+        operationAccount: "norlandzhang@walltechsystem.com",
+        status: "有效",
+        relatedUser: "",
+        phone: "",
+        qq: "",
+        role: "运营管理员",
+        company: "上海分公司",
+        updateTime: "2025-01-14 21:52:36",
+        createTime: "2024-12-15 09:20:15",
+        lastLoginTime: "2025-01-14 21:40:12"
       },
       {
         id: 3,
-        hblNo: "YXY25031448",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "MITSUFUKU HONPO",
-        consignee: "AGENT ONE CO.LTD",
-        startPort: "TAICANG, CHINA",
-        endPort: "OSAKA, JAPAN",
-        vesselVoyage: "",
-        originEtd: "03-21 Fri",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*40HC",
-        quantity: "0CTNS",
-        weight: "0.000 KGS",
-        volume: "0.000 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:22:38"
+        operationAccount: "leo19918@foxmail.com",
+        status: "无效",
+        relatedUser: "leoyang@walltechsystem.com",
+        phone: "",
+        qq: "",
+        role: "客服人员",
+        company: "北京分公司",
+        updateTime: "2025-01-13 20:41:17",
+        createTime: "2024-11-20 14:35:22",
+        lastLoginTime: "2025-01-12 18:30:45"
       },
       {
         id: 4,
-        hblNo: "YXY25031449",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "HANGZHOU HANYING",
-        consignee: "SPREAD CO.LTD",
-        startPort: "SHANGHAI, CHINA",
-        endPort: "NAGOYA, JAPAN",
-        vesselVoyage: "",
-        originEtd: "03-11 Tue",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*20GP",
-        quantity: "0",
-        weight: "0.000 KGS",
-        volume: "0.000 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:24:54"
+        operationAccount: "h.inoue@newhappy2002.com",
+        status: "有效",
+        relatedUser: "h.inoue@newhappy2002.com",
+        phone: "18901693494",
+        qq: "",
+        role: "超级管理员",
+        company: "总部",
+        updateTime: "2025-01-07 13:22:42",
+        createTime: "2024-10-18 11:25:30",
+        lastLoginTime: "2025-01-07 13:10:05"
       },
       {
         id: 5,
-        hblNo: "XYE25031450",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "",
-        consignee: "",
-        startPort: "NINGBO, CHINA",
-        endPort: "NAGOYA, JAPAN",
-        vesselVoyage: "",
-        originEtd: "03-09 Sun",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*40HC",
-        quantity: "1189CTNS",
-        weight: "8993.5 KGS",
-        volume: "46.341 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:29:21"
+        operationAccount: "kaki.w@newhappy2002.com",
+        status: "有效",
+        relatedUser: "",
+        phone: "",
+        qq: "13122228806",
+        role: "运营管理员",
+        company: "上海分公司",
+        updateTime: "2025-01-02 15:21:39",
+        createTime: "2024-09-25 16:40:18",
+        lastLoginTime: "2025-01-02 15:15:20"
+      },
+      {
+        id: 6,
+        operationAccount: "wiki.c@newhappy2002.com",
+        status: "有效",
+        relatedUser: "wiki.c@newhappy2002.com",
+        phone: "",
+        qq: "",
+        role: "运营管理员",
+        company: "北京分公司",
+        updateTime: "2024-12-12 11:57:50",
+        createTime: "2024-08-30 09:15:45",
+        lastLoginTime: "2024-12-12 11:50:10"
+      },
+      {
+        id: 7,
+        operationAccount: "fgoto@newhappy2002.com",
+        status: "有效",
+        relatedUser: "fgoto@newhappy2002.com",
+        phone: "",
+        qq: "",
+        role: "客服人员",
+        company: "上海分公司",
+        updateTime: "2024-12-12 11:57:25",
+        createTime: "2024-08-15 14:20:30",
+        lastLoginTime: "2024-12-12 11:45:15"
+      },
+      {
+        id: 8,
+        operationAccount: "arthur.t@newhappy2002.com",
+        status: "有效",
+        relatedUser: "arthur.t@newhappy2002.com",
+        phone: "",
+        qq: "",
+        role: "运营管理员",
+        company: "总部",
+        updateTime: "2024-12-12 11:56:18",
+        createTime: "2024-07-20 10:30:45",
+        lastLoginTime: "2024-12-12 11:40:20"
+      },
+      {
+        id: 9,
+        operationAccount: "shen.y@newhappy2002.com",
+        status: "有效",
+        relatedUser: "",
+        phone: "18512150758",
+        qq: "",
+        role: "运营管理员",
+        company: "北京分公司",
+        updateTime: "2024-12-12 11:55:24",
+        createTime: "2024-07-05 16:45:30",
+        lastLoginTime: "2024-12-12 11:35:25"
+      },
+      {
+        id: 10,
+        operationAccount: "amon.m@newhappy2002.com",
+        status: "有效",
+        relatedUser: "amon.m@newhappy2002.com",
+        phone: "",
+        qq: "",
+        role: "运营管理员",
+        company: "上海分公司",
+        updateTime: "2024-12-12 11:45:32",
+        createTime: "2024-06-15 09:50:15",
+        lastLoginTime: "2024-12-12 11:30:10"
       }
     ]);
 
@@ -489,10 +423,9 @@ export default defineComponent({
     // 默认列配置
     const defaultColumns: ColumnConfig[] = [
       {
-        title: 'HBL No.',
-        dataIndex: 'hblNo',
-        width: 120,
-        titleSlotName: 'hbl-title',
+        title: '运营账号',
+        dataIndex: 'operationAccount',
+        width: 200,
         sortable: {
           sortDirections: ['ascend', 'descend'],
           sorter: true
@@ -500,115 +433,7 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '详情',
-        dataIndex: 'operations',
-        width: 120,
-        align: 'center',
-        slotName: 'operations',
-        checked: true
-      },
-      {
-        title: 'TYPE',
-        dataIndex: 'type',
-        width: 100,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '箱型箱量',
-        dataIndex: 'containerInfo',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: 'Quantity/PCS',
-        dataIndex: 'quantity',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '毛重/KGS',
-        dataIndex: 'weight',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '体积/CBM',
-        dataIndex: 'volume',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: 'HDS',
-        dataIndex: 'hds',
-        width: 100,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '备注',
-        dataIndex: 'remark',
-        width: 140,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '业务参考号',
-        dataIndex: 'referenceNo',
-        width: 140,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '清关资料',
-        dataIndex: 'clearanceData',
-        width: 100,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '送货日期',
-        dataIndex: 'deliveryDate',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '订舱状态',
+        title: '状态',
         dataIndex: 'status',
         width: 100,
         align: 'center',
@@ -620,9 +445,9 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '发货人',
-        dataIndex: 'shipper',
-        width: 180,
+        title: '关联个人用户',
+        dataIndex: 'relatedUser',
+        width: 200,
         sortable: {
           sortDirections: ['ascend', 'descend'],
           sorter: true
@@ -630,9 +455,9 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '收货人',
-        dataIndex: 'consignee',
-        width: 160,
+        title: '手机',
+        dataIndex: 'phone',
+        width: 150,
         sortable: {
           sortDirections: ['ascend', 'descend'],
           sorter: true
@@ -640,9 +465,9 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '起运港',
-        dataIndex: 'startPort',
-        width: 160,
+        title: 'QQ',
+        dataIndex: 'qq',
+        width: 150,
         sortable: {
           sortDirections: ['ascend', 'descend'],
           sorter: true
@@ -650,28 +475,8 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '目的港',
-        dataIndex: 'endPort',
-        width: 160,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '船名/航次',
-        dataIndex: 'vesselVoyage',
-        width: 160,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: 'Origin ETD',
-        dataIndex: 'originEtd',
+        title: '角色',
+        dataIndex: 'role',
         width: 120,
         sortable: {
           sortDirections: ['ascend', 'descend'],
@@ -680,23 +485,52 @@ export default defineComponent({
         checked: true
       },
       {
-        title: 'Origin ETA',
-        dataIndex: 'originEta',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '最后更新时间',
+        title: '更新时间',
         dataIndex: 'updateTime',
         width: 180,
         sortable: {
           sortDirections: ['ascend', 'descend'],
           sorter: true
         },
+        checked: true
+      },
+      {
+        title: '所属公司',
+        dataIndex: 'company',
+        width: 150,
+        sortable: {
+          sortDirections: ['ascend', 'descend'],
+          sorter: true
+        },
+        checked: true
+      },
+      {
+        title: '创建时间',
+        dataIndex: 'createTime',
+        width: 180,
+        sortable: {
+          sortDirections: ['ascend', 'descend'],
+          sorter: true
+        },
+        checked: true
+      },
+      {
+        title: '最后登录时间',
+        dataIndex: 'lastLoginTime',
+        width: 180,
+        sortable: {
+          sortDirections: ['ascend', 'descend'],
+          sorter: true
+        },
+        checked: true
+      },
+      {
+        title: '操作',
+        dataIndex: 'operations',
+        width: 120,
+        fixed: 'right',
+        align: 'center',
+        slotName: 'operations',
         checked: true
       }
     ];
@@ -764,13 +598,65 @@ export default defineComponent({
       columnSettingList.value = JSON.parse(JSON.stringify(defaultColumns));
     };
     
+    // 查询数据
+    const handleSearch = () => {
+      // 查询逻辑
+      Message.success("查询成功");
+    };
+
+    // 重置表单
+    const handleReset = () => {
+      Object.keys(formData).forEach(key => {
+        const k = key as keyof typeof formData;
+        if (Array.isArray(formData[k])) {
+          (formData[k] as any) = [];
+        } else {
+          (formData[k] as any) = "";
+        }
+      });
+      Message.info("筛选条件已重置");
+    };
+
+    // 新增运营账号
+    const handleAddAccount = () => {
+      Message.success("打开新增运营账号表单");
+    };
+
+    // 设置角色
+    const handleSetRole = (record: any) => {
+      Message.info(`为账号 ${record.operationAccount} 设置角色`);
+    };
+
+    // 解绑用户
+    const handleUnbindUser = (record: any) => {
+      Message.info(`解绑账号 ${record.operationAccount} 的用户`);
+    };
+
+    // 停用账号
+    const handleDisable = (record: any) => {
+      Message.info(`停用账号 ${record.operationAccount}`);
+    };
+
+    // 行样式
+    const rowClass = (record: any) => {
+      return record.id % 2 === 0 ? '' : 'highlight-row';
+    };
+
+    // 筛选区域展开状态
+    const isExpanded = ref(true);
+    
+    // 切换展开/缩起状态
+    const toggleExpand = () => {
+      isExpanded.value = !isExpanded.value;
+    };
+
     // 排序处理
     const handleSorterChange = (dataIndex: string, direction: string) => {
       Message.info(`按${dataIndex}字段${direction === 'ascend' ? '升序' : '降序'}排列`);
       
       // 在前端实现排序逻辑
       if (direction) {
-        orderList.sort((a, b) => {
+        accountList.sort((a, b) => {
           const valueA = a[dataIndex as keyof typeof a];
           const valueB = b[dataIndex as keyof typeof b];
           
@@ -793,61 +679,9 @@ export default defineComponent({
       }
     };
 
-    // 查询数据
-    const handleSearch = () => {
-      // 查询逻辑
-      Message.success("查询成功");
-    };
-
-    // 重置表单
-    const handleReset = () => {
-      Object.keys(formData).forEach(key => {
-        const k = key as keyof typeof formData;
-        if (Array.isArray(formData[k])) {
-          (formData[k] as any) = [];
-        } else {
-          (formData[k] as any) = "";
-        }
-      });
-      Message.info("筛选条件已重置");
-    };
-
-    // 下载选中改为导出列表
-    const handleExportList = () => {
-      Message.success("正在导出列表数据");
-    };
-
-    // 上传资料改为上传清关资料
-    const handleUploadClearanceData = () => {
-      Message.success("请选择要上传的清关资料");
-    };
-
-    // 查看详情
-    const handleViewDetail = (record: any) => {
-      Message.info(`查看订单详情: ${record.hblNo}`);
-    };
-
-    // 清关资料
-    const handleClearanceData = (record: any) => {
-      Message.info(`查看清关资料: ${record.hblNo}`);
-    };
-
-    // 行样式
-    const rowClass = (record: any) => {
-      return record.id % 2 === 0 ? '' : 'highlight-row';
-    };
-
-    // 筛选区域展开状态
-    const isExpanded = ref(true);
-    
-    // 切换展开/缩起状态
-    const toggleExpand = () => {
-      isExpanded.value = !isExpanded.value;
-    };
-
     return {
       formData,
-      orderList,
+      accountList,
       pagination,
       columnSettingList,
       showColumnSetting,
@@ -859,17 +693,17 @@ export default defineComponent({
       drop,
       handleSearch,
       handleReset,
-      handleExportList,
-      handleUploadClearanceData,
-      handleViewDetail,
-      handleClearanceData,
+      handleAddAccount,
+      handleSetRole,
+      handleUnbindUser,
+      handleDisable,
       rowClass,
       cancelColumnSetting,
       saveColumnSetting,
       resetColumnSetting,
-      handleSorterChange,
       isExpanded,
-      toggleExpand
+      toggleExpand,
+      handleSorterChange
     };
   }
 });
@@ -1058,13 +892,6 @@ export default defineComponent({
   margin-left: 16px;
 }
 
-/* 排序图标 */
-.sort-icon {
-  font-size: 14px;
-  margin-left: 4px;
-  color: #86909c;
-}
-
 /* 列设置样式 */
 .column-setting-container {
   padding: 12px 0;
@@ -1179,28 +1006,5 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.input-with-tooltip {
-  position: relative;
-}
-
-.tooltip-icon {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.title-with-tooltip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.title-tooltip-icon {
-  font-size: 16px;
-  color: #86909c;
 }
 </style> 

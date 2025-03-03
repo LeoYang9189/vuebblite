@@ -1,6 +1,6 @@
 <template>
   <div class="verification-container">
-    <h2 class="page-title">预报订单</h2>
+    <h2 class="page-title">船单列表</h2>
 
     <!-- 筛选区域 -->
     <div class="filter-container">
@@ -8,114 +8,50 @@
         <!-- 第一行筛选区域 - 调整为3列均匀布局 -->
         <div class="filter-row">
           <div class="filter-item">
-            <span class="filter-label">业务参考号</span>
-            <a-input v-model="formData.referenceNo" placeholder="请输入" />
+            <span class="filter-label">单号</span>
+            <a-input v-model="formData.billNumber" placeholder="请输入" />
           </div>
           <div class="filter-item">
-            <span class="filter-label">HBL No.</span>
-            <div class="input-with-tooltip">
-              <a-input v-model="formData.hblNo" placeholder="请输入" />
-              <a-tooltip content="HBL是House Bill of Lading的缩写，指由货运代理签发的提单" position="top">
-                <icon-question-circle class="tooltip-icon" />
-              </a-tooltip>
-            </div>
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">MBL No.</span>
+            <span class="filter-label">MBL / MAWB</span>
             <a-input v-model="formData.mblNo" placeholder="请输入" />
+          </div>
+          <div class="filter-item">
+            <span class="filter-label">HBL / HAWB</span>
+            <a-input v-model="formData.hblNo" placeholder="请输入" />
           </div>
         </div>
         
         <!-- 第二行筛选区域 - 使用展开/缩起功能 -->
         <div class="filter-row" v-show="isExpanded">
           <div class="filter-item">
-            <span class="filter-label">Type</span>
-            <a-select v-model="formData.type" placeholder="请选择">
-              <a-option value="FCL">FCL</a-option>
-              <a-option value="LCL">LCL</a-option>
-              <a-option value="AIR">AIR</a-option>
-            </a-select>
+            <span class="filter-label">业务参考号</span>
+            <a-input v-model="formData.referenceNo" placeholder="请输入" />
           </div>
           <div class="filter-item">
-            <span class="filter-label">Original ETD</span>
+            <span class="filter-label">船期日期</span>
             <a-range-picker 
-              v-model="formData.originalEtd" 
+              v-model="formData.etd" 
               style="width: 100%"
             />
           </div>
           <div class="filter-item">
-            <span class="filter-label">Current ETA</span>
-            <a-range-picker 
-              v-model="formData.currentEta"
-              style="width: 100%" 
-            />
+            <span class="filter-label">状态</span>
+            <a-select v-model="formData.status" placeholder="全部">
+              <a-option value="全部">全部</a-option>
+              <a-option value="已确认">已确认</a-option>
+              <a-option value="未确认">未确认</a-option>
+            </a-select>
           </div>
         </div>
 
         <!-- 第三行筛选区域 -->
         <div class="filter-row" v-show="isExpanded">
           <div class="filter-item">
-            <span class="filter-label">起始港</span>
-            <a-input v-model="formData.startPort" placeholder="请输入" />
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">目的港</span>
-            <a-input v-model="formData.endPort" placeholder="请输入" />
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">订舱状态</span>
-            <a-select v-model="formData.status" placeholder="请选择">
-              <a-option value="确定">确定</a-option>
-              <a-option value="取消">取消</a-option>
-            </a-select>
-          </div>
-        </div>
-        
-        <!-- 第四行筛选区域 -->
-        <div class="filter-row" v-show="isExpanded">
-          <div class="filter-item">
-            <span class="filter-label">海外客服</span>
-            <a-select v-model="formData.overseasSupport" placeholder="请选择">
-              <a-option value="请选择">请选择</a-option>
-            </a-select>
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">发货人</span>
-            <a-input v-model="formData.shipper" placeholder="请输入" />
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">收货人</span>
-            <a-input v-model="formData.consignee" placeholder="请输入" />
-          </div>
-        </div>
-        
-        <!-- 第五行筛选区域 -->
-        <div class="filter-row" v-show="isExpanded">
-          <div class="filter-item">
-            <span class="filter-label">船名</span>
-            <a-input v-model="formData.vesselName" placeholder="请输入" />
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">箱型箱量</span>
-            <a-input v-model="formData.containerInfo" placeholder="请输入" />
+            <span class="filter-label">港口</span>
+            <a-input v-model="formData.port" placeholder="请输入" />
           </div>
           <div class="filter-item">
             <!-- 空白项，保持布局一致 -->
-          </div>
-        </div>
-
-        <!-- 第六行筛选区域（新增） -->
-        <div class="filter-row" v-show="isExpanded">
-          <div class="filter-item">
-            <span class="filter-label">HDS</span>
-            <a-select v-model="formData.hds" placeholder="请选择">
-              <a-option value="YES">YES</a-option>
-              <a-option value="NO">NO</a-option>
-            </a-select>
-          </div>
-          <div class="filter-item">
-            <span class="filter-label">备注</span>
-            <a-input v-model="formData.remark" placeholder="请输入" />
           </div>
           <div class="filter-item">
             <!-- 空白项，保持布局一致 -->
@@ -157,9 +93,9 @@
           <template #icon><icon-download /></template>
           导出列表
         </a-button>
-        <a-button @click="handleUploadClearanceData">
-          <template #icon><icon-upload /></template>
-          上传清关资料
+        <a-button @click="handleAddBilling">
+          <template #icon><icon-plus /></template>
+          新增账单
         </a-button>
       </div>
     </div>
@@ -167,7 +103,7 @@
     <!-- 表格区域 -->
     <div class="table-container">
       <a-table 
-        :data="orderList" 
+        :data="billingList" 
         :pagination="false"
         :bordered="{ cell: true }"
         :stripe="false"
@@ -182,18 +118,9 @@
             <icon-sort class="sort-icon" />
           </a-tooltip>
         </template>
-        <!-- HBL No.列标题插槽 -->
-        <template #hbl-title>
-          <div class="title-with-tooltip">
-            <span>HBL No.</span>
-            <a-tooltip content="HBL是House Bill of Lading的缩写，指由货运代理签发的提单" position="top">
-              <icon-question-circle class="title-tooltip-icon" />
-            </a-tooltip>
-          </div>
-        </template>
         <template #status="{ record }">
           <a-tag
-            :color="record.status === '确定' ? 'green' : 'red'"
+            :color="record.status === '已确认' ? 'green' : 'orange'"
             size="small"
           >
             {{ record.status }}
@@ -204,8 +131,8 @@
             <a-button type="text" size="small" @click="handleViewDetail(record)">
               查看详情
             </a-button>
-            <a-button type="text" size="small" @click="handleClearanceData(record)">
-              清关资料
+            <a-button type="text" size="small" @click="handleEditBilling(record)">
+              编辑
             </a-button>
           </div>
         </template>
@@ -310,7 +237,8 @@ import {
   IconInfoCircle,
   IconDownload,
   IconUpload,
-  IconQuestionCircle
+  IconQuestionCircle,
+  IconPlus
 } from "@arco-design/web-vue/es/icon";
 
 interface ColumnConfig extends Omit<TableColumnData, 'checked'> {
@@ -318,7 +246,7 @@ interface ColumnConfig extends Omit<TableColumnData, 'checked'> {
 }
 
 export default defineComponent({
-  name: "ShippingOrderPage",
+  name: "BillingListPage",
   components: {
     IconSearch,
     IconUp,
@@ -331,155 +259,99 @@ export default defineComponent({
     IconInfoCircle,
     IconDownload,
     IconUpload,
-    IconQuestionCircle
+    IconQuestionCircle,
+    IconPlus
   },
   setup() {
     // 表单数据
     const formData = reactive({
+      billNumber: "", // 单号
+      mblNo: "", // MBL/MAWB No.
+      hblNo: "", // HBL/HAWB No.
       referenceNo: "", // 业务参考号
-      hblNo: "", // HBL No.
-      mblNo: "", // MBL No.
-      type: "", // 类型
-      originalEtd: [] as (string | number | Date)[], // 原始ETD
-      currentEta: [] as (string | number | Date)[], // 当前ETA
-      startPort: "", // 起始港
-      endPort: "", // 目的港
-      status: "", // 订舱状态
-      overseasSupport: "", // 海外客服
-      shipper: "", // 发货人
-      consignee: "", // 收货人
-      vesselName: "", // 船名
-      containerInfo: "", // 箱型箱量
-      quantity: "", // 数量
-      weight: "", // 毛重
-      volume: "", // 体积
-      hds: "", // HDS
-      remark: "" // 备注
+      etd: [] as (string | number | Date)[], // 船期日期(ETD)
+      port: "", // 港口
+      status: "" // 状态
     });
 
     // 分页设置
     const pagination = reactive({
       current: 1,
       pageSize: 10,
-      total: 15
+      total: 5
     });
 
-    // 订单列表数据
-    const orderList = reactive([
+    // 账单列表数据
+    const billingList = reactive([
       {
         id: 1,
-        hblNo: "YXY25031451",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "BAO LAI COMPANY",
-        consignee: "CC JAPAN CO., LTD.",
-        startPort: "SHANGHAI, CHINA",
-        endPort: "OSAKA, JAPAN",
-        vesselVoyage: "MITRA BHUM V.230T",
-        originEtd: "03-11 Tue",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*40GP",
-        quantity: "0",
-        weight: "0.000 KGS",
-        volume: "0.000 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:34:18"
+        billNumber: "BL20250001",
+        mblNo: "MBLX12345",
+        hblNo: "HBLX12345",
+        referenceNo: "REF001",
+        etd: "2025-02-03",
+        port: "SHANGHAI, CHINA",
+        status: "已确认",
+        amount: "8,500.00",
+        currency: "USD",
+        dueDate: "2025-03-15",
+        updateTime: "2025-02-01 14:30:25"
       },
       {
         id: 2,
-        hblNo: "DS25009",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "",
-        consignee: "",
-        startPort: "SHANGHAI, CHINA",
-        endPort: "HIROSHIMA, JAPAN",
-        vesselVoyage: "",
-        originEtd: "03-11 Tue",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*20GP",
-        quantity: "0CTNS",
-        weight: "0.000 KGS",
-        volume: "0.000 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:43:32"
+        billNumber: "BL20250002",
+        mblNo: "MBLX23456",
+        hblNo: "HBLX23456",
+        referenceNo: "REF002",
+        etd: "2025-02-08",
+        port: "NINGBO, CHINA",
+        status: "未确认",
+        amount: "6,200.00",
+        currency: "USD",
+        dueDate: "2025-03-20",
+        updateTime: "2025-02-02 09:15:32"
       },
       {
         id: 3,
-        hblNo: "YXY25031448",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "MITSUFUKU HONPO",
-        consignee: "AGENT ONE CO.LTD",
-        startPort: "TAICANG, CHINA",
-        endPort: "OSAKA, JAPAN",
-        vesselVoyage: "",
-        originEtd: "03-21 Fri",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*40HC",
-        quantity: "0CTNS",
-        weight: "0.000 KGS",
-        volume: "0.000 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:22:38"
+        billNumber: "BL20250003",
+        mblNo: "MBLX34567",
+        hblNo: "HBLX34567",
+        referenceNo: "REF003",
+        etd: "2025-02-12",
+        port: "GUANGZHOU, CHINA",
+        status: "已确认",
+        amount: "12,300.00",
+        currency: "USD",
+        dueDate: "2025-03-25",
+        updateTime: "2025-02-03 11:42:18"
       },
       {
         id: 4,
-        hblNo: "YXY25031449",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "HANGZHOU HANYING",
-        consignee: "SPREAD CO.LTD",
-        startPort: "SHANGHAI, CHINA",
-        endPort: "NAGOYA, JAPAN",
-        vesselVoyage: "",
-        originEtd: "03-11 Tue",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*20GP",
-        quantity: "0",
-        weight: "0.000 KGS",
-        volume: "0.000 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:24:54"
+        billNumber: "BL20250004",
+        mblNo: "MBLX45678",
+        hblNo: "HBLX45678",
+        referenceNo: "REF004",
+        etd: "2025-02-15",
+        port: "QINGDAO, CHINA",
+        status: "未确认",
+        amount: "9,800.00",
+        currency: "USD",
+        dueDate: "2025-03-30",
+        updateTime: "2025-02-04 16:20:45"
       },
       {
         id: 5,
-        hblNo: "XYE25031450",
-        referenceNo: "",
-        clearanceData: "已审",
-        deliveryDate: "",
-        status: "确定",
-        shipper: "",
-        consignee: "",
-        startPort: "NINGBO, CHINA",
-        endPort: "NAGOYA, JAPAN",
-        vesselVoyage: "",
-        originEtd: "03-09 Sun",
-        originEta: "",
-        type: "FCL",
-        containerInfo: "1*40HC",
-        quantity: "1189CTNS",
-        weight: "8993.5 KGS",
-        volume: "46.341 CBM",
-        hds: "NO",
-        remark: "",
-        updateTime: "2025-03-03 17:29:21"
+        billNumber: "BL20250005",
+        mblNo: "MBLX56789",
+        hblNo: "HBLX56789",
+        referenceNo: "REF005",
+        etd: "2025-02-18",
+        port: "XIAMEN, CHINA",
+        status: "已确认",
+        amount: "7,400.00",
+        currency: "USD",
+        dueDate: "2025-04-05",
+        updateTime: "2025-02-05 10:05:37"
       }
     ]);
 
@@ -489,10 +361,9 @@ export default defineComponent({
     // 默认列配置
     const defaultColumns: ColumnConfig[] = [
       {
-        title: 'HBL No.',
-        dataIndex: 'hblNo',
+        title: '单号',
+        dataIndex: 'billNumber',
         width: 120,
-        titleSlotName: 'hbl-title',
         sortable: {
           sortDirections: ['ascend', 'descend'],
           sorter: true
@@ -508,76 +379,6 @@ export default defineComponent({
         checked: true
       },
       {
-        title: 'TYPE',
-        dataIndex: 'type',
-        width: 100,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '箱型箱量',
-        dataIndex: 'containerInfo',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: 'Quantity/PCS',
-        dataIndex: 'quantity',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '毛重/KGS',
-        dataIndex: 'weight',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '体积/CBM',
-        dataIndex: 'volume',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: 'HDS',
-        dataIndex: 'hds',
-        width: 100,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '备注',
-        dataIndex: 'remark',
-        width: 140,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
         title: '业务参考号',
         dataIndex: 'referenceNo',
         width: 140,
@@ -588,9 +389,9 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '清关资料',
-        dataIndex: 'clearanceData',
-        width: 100,
+        title: 'MBL / MAWB',
+        dataIndex: 'mblNo',
+        width: 140,
         sortable: {
           sortDirections: ['ascend', 'descend'],
           sorter: true
@@ -598,8 +399,18 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '送货日期',
-        dataIndex: 'deliveryDate',
+        title: 'HBL / HAWB',
+        dataIndex: 'hblNo',
+        width: 140,
+        sortable: {
+          sortDirections: ['ascend', 'descend'],
+          sorter: true
+        },
+        checked: true
+      },
+      {
+        title: '船期日期',
+        dataIndex: 'etd',
         width: 120,
         sortable: {
           sortDirections: ['ascend', 'descend'],
@@ -608,7 +419,47 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '订舱状态',
+        title: 'ETD',
+        dataIndex: 'etd',
+        width: 120,
+        sortable: {
+          sortDirections: ['ascend', 'descend'],
+          sorter: true
+        },
+        checked: true
+      },
+      {
+        title: '港口',
+        dataIndex: 'port',
+        width: 160,
+        sortable: {
+          sortDirections: ['ascend', 'descend'],
+          sorter: true
+        },
+        checked: true
+      },
+      {
+        title: '金额',
+        dataIndex: 'amount',
+        width: 120,
+        sortable: {
+          sortDirections: ['ascend', 'descend'],
+          sorter: true
+        },
+        checked: true
+      },
+      {
+        title: '币种',
+        dataIndex: 'currency',
+        width: 100,
+        sortable: {
+          sortDirections: ['ascend', 'descend'],
+          sorter: true
+        },
+        checked: true
+      },
+      {
+        title: '状态',
         dataIndex: 'status',
         width: 100,
         align: 'center',
@@ -620,68 +471,8 @@ export default defineComponent({
         checked: true
       },
       {
-        title: '发货人',
-        dataIndex: 'shipper',
-        width: 180,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '收货人',
-        dataIndex: 'consignee',
-        width: 160,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '起运港',
-        dataIndex: 'startPort',
-        width: 160,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '目的港',
-        dataIndex: 'endPort',
-        width: 160,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: '船名/航次',
-        dataIndex: 'vesselVoyage',
-        width: 160,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: 'Origin ETD',
-        dataIndex: 'originEtd',
-        width: 120,
-        sortable: {
-          sortDirections: ['ascend', 'descend'],
-          sorter: true
-        },
-        checked: true
-      },
-      {
-        title: 'Origin ETA',
-        dataIndex: 'originEta',
+        title: '到期日',
+        dataIndex: 'dueDate',
         width: 120,
         sortable: {
           sortDirections: ['ascend', 'descend'],
@@ -770,7 +561,7 @@ export default defineComponent({
       
       // 在前端实现排序逻辑
       if (direction) {
-        orderList.sort((a, b) => {
+        billingList.sort((a, b) => {
           const valueA = a[dataIndex as keyof typeof a];
           const valueB = b[dataIndex as keyof typeof b];
           
@@ -812,24 +603,24 @@ export default defineComponent({
       Message.info("筛选条件已重置");
     };
 
-    // 下载选中改为导出列表
+    // 导出列表
     const handleExportList = () => {
-      Message.success("正在导出列表数据");
+      Message.success("正在导出账单列表数据");
     };
 
-    // 上传资料改为上传清关资料
-    const handleUploadClearanceData = () => {
-      Message.success("请选择要上传的清关资料");
+    // 新增账单
+    const handleAddBilling = () => {
+      Message.success("打开新增账单表单");
     };
 
     // 查看详情
     const handleViewDetail = (record: any) => {
-      Message.info(`查看订单详情: ${record.hblNo}`);
+      Message.info(`查看账单详情: ${record.billNumber}`);
     };
 
-    // 清关资料
-    const handleClearanceData = (record: any) => {
-      Message.info(`查看清关资料: ${record.hblNo}`);
+    // 编辑账单
+    const handleEditBilling = (record: any) => {
+      Message.info(`编辑账单: ${record.billNumber}`);
     };
 
     // 行样式
@@ -847,7 +638,7 @@ export default defineComponent({
 
     return {
       formData,
-      orderList,
+      billingList,
       pagination,
       columnSettingList,
       showColumnSetting,
@@ -860,9 +651,9 @@ export default defineComponent({
       handleSearch,
       handleReset,
       handleExportList,
-      handleUploadClearanceData,
+      handleAddBilling,
       handleViewDetail,
-      handleClearanceData,
+      handleEditBilling,
       rowClass,
       cancelColumnSetting,
       saveColumnSetting,
@@ -1179,28 +970,5 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.input-with-tooltip {
-  position: relative;
-}
-
-.tooltip-icon {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.title-with-tooltip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.title-tooltip-icon {
-  font-size: 16px;
-  color: #86909c;
 }
 </style> 

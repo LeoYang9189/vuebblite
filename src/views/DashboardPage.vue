@@ -100,7 +100,7 @@
             </div>
             <div class="sub-menu-content" v-show="!collapsed && isOpen('enterprise')">
               <div class="sub-menu-item" :class="{ active: isActive('certified-enterprise') }">
-                <router-link to="/dashboard/enterprise/certified">已认证企业</router-link>
+                <router-link to="/dashboard/company/verified">已认证企业</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('pending-enterprise') }">
                 <router-link to="/dashboard/enterprise/pending">待审核企业</router-link>

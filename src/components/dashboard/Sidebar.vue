@@ -33,6 +33,9 @@
           <a-menu-item key="2-3">
             <router-link to="/dashboard/company/account">企业账户</router-link>
           </a-menu-item>
+          <a-menu-item key="2-4">
+            <router-link to="/dashboard/company/verified">已认证企业</router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <!-- 订单中心子菜单 -->
@@ -48,9 +51,13 @@
         <a-sub-menu key="4">
           <template #icon><icon-safe /></template>
           <template #title>财务中心</template>
-          <a-menu-item key="4-1">账单列表</a-menu-item>
+          <a-menu-item key="4-1">
+            <router-link to="/dashboard/finance/bill-list">账单列表</router-link>
+          </a-menu-item>
           <a-menu-item key="4-2">国外账单</a-menu-item>
-          <a-menu-item key="4-3">发票列表</a-menu-item>
+          <a-menu-item key="4-3">
+            <router-link to="/dashboard/finance/invoice-list">发票列表</router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <a-menu-item key="5">
@@ -58,15 +65,26 @@
           客户中心
         </a-menu-item>
 
-        <a-menu-item key="6">
+        <a-sub-menu key="6">
           <template #icon><icon-settings /></template>
-          运营管理
-        </a-menu-item>
+          <template #title>运营管理</template>
+          <a-menu-item key="6-1">
+            <router-link to="/dashboard/operation/news-category">资讯类别</router-link>
+          </a-menu-item>
+          <a-menu-item key="6-2">
+            <router-link to="/dashboard/operation/news-management">资讯管理</router-link>
+          </a-menu-item>
+        </a-sub-menu>
 
-        <a-menu-item key="7">
+        <a-sub-menu key="7">
           <template #icon><icon-computer /></template>
-          系统管理
-        </a-menu-item>
+          <template #title>系统管理</template>
+          <a-menu-item key="7-1">
+            <router-link to="/dashboard/system/operation-account">运营账号</router-link>
+          </a-menu-item>
+          <a-menu-item key="7-2">权限管理</a-menu-item>
+          <a-menu-item key="7-3">个性化配置</a-menu-item>
+        </a-sub-menu>
 
         <!-- 站内信子菜单 -->
         <a-sub-menu key="8">
@@ -155,8 +173,32 @@ export default defineComponent({
         case "2-3":
           router.push("/dashboard/company/account");
           break;
+        case "2-4":
+          router.push("/dashboard/company/verified");
+          break;
         case "3-1":
           router.push("/dashboard/orders/forecast");
+          break;
+        case "4-1":
+          router.push("/dashboard/finance/bill-list");
+          break;
+        case "4-2":
+          router.push("/dashboard/finance/invoice-list");
+          break;
+        case "6-1":
+          router.push("/dashboard/operation/news-category");
+          break;
+        case "6-2":
+          router.push("/dashboard/operation/news-management");
+          break;
+        case "7-1":
+          router.push("/dashboard/system/operation-account");
+          break;
+        case "7-2":
+          router.push("/dashboard/system/permission");
+          break;
+        case "7-3":
+          router.push("/dashboard/system/config");
           break;
         default:
           break;
