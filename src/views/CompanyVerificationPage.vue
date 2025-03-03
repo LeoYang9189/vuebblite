@@ -125,7 +125,7 @@
             <template #total>
               <span>共 {{ pagination.total }} 条</span>
               <a-select v-model="pagination.pageSize" style="width: 120px; margin-left: 16px" size="small">
-                <a-option :value="10">15 条/页</a-option>
+                <a-option :value="10">10 条/页</a-option>
                 <a-option :value="20">20 条/页</a-option>
                 <a-option :value="50">50 条/页</a-option>
                 <a-option :value="100">100 条/页</a-option>
