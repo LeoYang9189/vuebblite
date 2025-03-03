@@ -1,12 +1,11 @@
 <template>
   <div class="service-page">
-    <!-- 页面横幅 -->
-    <section class="service-banner">
+    <!-- 使用与TrackingPage完全相同的class名称和HTML结构 -->
+    <div class="tracking-banner">
       <div class="container">
-        <h1>业务介绍</h1>
-        <p>了解我们为您提供的专业物流解决方案</p>
+        <h1 class="tracking-title">业务介绍</h1>
       </div>
-    </section>
+    </div>
 
     <!-- 服务导航 -->
     <section class="service-nav-section">
@@ -94,31 +93,55 @@
           <!-- 服务流程 -->
           <div class="service-process">
             <h3 class="section-subtitle">服务流程</h3>
-            <div class="process-steps">
-              <div class="process-step">
-                <div class="step-number">01</div>
-                <h4>提交订舱申请</h4>
-                <p>通过B2B平台或联系客服提交您的订舱需求，包括货物信息、起运港、目的港等。</p>
+            <div class="process-timeline">
+              <div class="process-item">
+                <div class="process-dot">
+                  <span>1</span>
+                </div>
+                <div class="process-content">
+                  <h4>提交需求</h4>
+                  <p>通过我们的平台或客服人员，提交您的订舱需求和相关信息。</p>
+                </div>
               </div>
-              <div class="process-step">
-                <div class="step-number">02</div>
-                <h4>确认舱位</h4>
-                <p>我们将为您确认合适的舱位，并提供准确的船期和运输时间。</p>
+
+              <div class="process-item">
+                <div class="process-dot">
+                  <span>2</span>
+                </div>
+                <div class="process-content">
+                  <h4>查询报价</h4>
+                  <p>我们将为您提供最优的航线和价格方案，供您选择。</p>
+                </div>
               </div>
-              <div class="process-step">
-                <div class="step-number">03</div>
-                <h4>准备货物</h4>
-                <p>根据确认的船期，您需要准备好货物并完成必要的包装。</p>
+
+              <div class="process-item">
+                <div class="process-dot">
+                  <span>3</span>
+                </div>
+                <div class="process-content">
+                  <h4>确认订舱</h4>
+                  <p>确认方案后，我们将为您完成正式订舱流程。</p>
+                </div>
               </div>
-              <div class="process-step">
-                <div class="step-number">04</div>
-                <h4>装船发运</h4>
-                <p>我们将按照约定时间安排您的货物装船，并确保顺利发运。</p>
+
+              <div class="process-item">
+                <div class="process-dot">
+                  <span>4</span>
+                </div>
+                <div class="process-content">
+                  <h4>舱位确认</h4>
+                  <p>获取船公司的舱位确认并通知您相关装货信息。</p>
+                </div>
               </div>
-              <div class="process-step">
-                <div class="step-number">05</div>
-                <h4>全程跟踪</h4>
-                <p>通过我们的平台，您可以实时追踪货物的运输状态，掌握最新动态。</p>
+
+              <div class="process-item">
+                <div class="process-dot">
+                  <span>5</span>
+                </div>
+                <div class="process-content">
+                  <h4>追踪管理</h4>
+                  <p>全程追踪货物状态，确保运输顺利完成。</p>
+                </div>
               </div>
             </div>
           </div>
@@ -253,6 +276,68 @@
         </div>
       </div>
     </section>
+
+    <!-- 添加公共模块：我们的实力展示 -->
+    <section class="strength-section">
+      <div class="container">
+        <h2 class="strength-title">我们的实力展示</h2>
+
+        <div class="strength-grid">
+          <div class="strength-card">
+            <div class="strength-image">
+              <img src="@/assets/images/warehouse-facility.jpg" alt="现代化仓储设施" />
+            </div>
+            <h3>现代化仓储设施</h3>
+            <p>
+              我们拥有超过10万平方米的现代化仓储设施，配备先进的货架系统和自动化设备，确保高效的仓储管理。
+            </p>
+          </div>
+
+          <div class="strength-card">
+            <div class="strength-image">
+              <img src="@/assets/images/global-network.jpg" alt="全球物流网络" />
+            </div>
+            <h3>全球物流网络</h3>
+            <p>
+              我们与全球超过100个国家和地区建立了紧密的物流合作关系，能够为客户提供全方位的国际物流服务。
+            </p>
+          </div>
+
+          <div class="strength-card">
+            <div class="strength-image">
+              <img src="@/assets/images/tech-system.jpg" alt="先进技术系统" />
+            </div>
+            <h3>先进技术系统</h3>
+            <p>
+              我们采用最新的物流管理系统和追踪技术，实现全程可视化管理，为客户提供实时的货物跟踪服务。
+            </p>
+          </div>
+
+          <div class="strength-card">
+            <div class="strength-image">
+              <img src="@/assets/images/professional-team.jpg" alt="专业服务团队" />
+            </div>
+            <h3>专业服务团队</h3>
+            <p>
+              我们拥有一支经验丰富、专业高效的物流服务团队，能够为客户提供专业的咨询和定制化的物流解决方案。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 添加联系我们区域 -->
+    <section class="inquiry-section">
+      <div class="container">
+        <div class="inquiry-content">
+          <h2>需要更多业务咨询？</h2>
+          <p>
+            我们的专业团队随时为您提供详细的业务咨询和定制化解决方案，帮助您解决国际贸易和物流中的各种挑战。
+          </p>
+          <a href="#" class="contact-btn">联系我们</a>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -323,3 +408,378 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+/* 完全使用与TrackingPage相同的CSS类名和属性 */
+.service-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.tracking-banner {
+  height: 200px;
+  background-image: url("@/assets/images/tracking-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 50px;
+}
+
+.tracking-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.tracking-title {
+  color: white;
+  font-size: 32px;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+}
+
+/* 1. 服务概述区域样式 */
+.service-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.intro-content {
+  flex: 3;
+  text-align: left;
+}
+
+/* 小标题样式调整 */
+.section-subtitle {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 25px;
+  padding-bottom: 12px;
+  border-bottom: none;
+  position: relative;
+  text-align: center;
+}
+
+.section-subtitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: #1e5aa0;
+}
+
+.intro-content p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.intro-image-container {
+  flex: 2;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  max-height: 220px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.intro-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(30, 90, 160, 0.2), transparent);
+  z-index: 1;
+}
+
+/* 2. 服务流程样式 */
+.service-process {
+  margin: 50px 0;
+}
+
+.process-timeline {
+  position: relative;
+  padding: 20px 0;
+}
+
+.process-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 2px;
+  background-color: #e0e0e0;
+  z-index: 1;
+}
+
+.process-item {
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 30px;
+  z-index: 2;
+}
+
+.process-item:last-child {
+  margin-bottom: 0;
+}
+
+.process-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 2px solid #1e5aa0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 0 0 4px rgba(30, 90, 160, 0.1);
+}
+
+.process-dot span {
+  font-weight: 600;
+  color: #1e5aa0;
+  font-size: 18px;
+}
+
+.process-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-left: 3px solid #1e5aa0;
+}
+
+.process-content h4 {
+  margin: 0 0 10px 0;
+  color: #1e5aa0;
+  font-size: 18px;
+}
+
+.process-content p {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 3. 实力展示区域样式 */
+.strength-section {
+  padding: 60px 0;
+  background-color: #fff;
+}
+
+.strength-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 28px;
+  color: #333;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.strength-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #1e5aa0;
+}
+
+.strength-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.strength-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.strength-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.strength-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.strength-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.strength-card:hover .strength-image img {
+  transform: scale(1.05);
+}
+
+.strength-card h3 {
+  padding: 20px 20px 10px;
+  margin: 0;
+  color: #1e5aa0;
+  font-size: 20px;
+}
+
+.strength-card p {
+  padding: 0 20px 20px;
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 4. 联系我们区域样式 */
+.inquiry-section {
+  padding: 60px 0;
+  background-color: #fff;
+  text-align: center;
+}
+
+.inquiry-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.inquiry-content h2 {
+  font-size: 32px;
+  color: #1e5aa0;
+  margin-bottom: 20px;
+}
+
+.inquiry-content p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.contact-btn {
+  display: inline-block;
+  background-color: #1e5aa0;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 35px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+  background-color: #164785;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+  .service-intro {
+    flex-direction: column;
+  }
+
+  .strength-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inquiry-content {
+    flex-direction: column;
+  }
+}
+
+/* 调整页面内容宽度 */
+.service-details-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.service-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.strength-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.service-nav-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.inquiry-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 确保服务概述文字靠左对齐 */
+.intro-text {
+  text-align: left;
+}
+
+.intro-text h3 {
+  text-align: left;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.intro-text h3::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #1e5aa0;
+}
+
+.intro-text p {
+  text-align: left;
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+</style>
