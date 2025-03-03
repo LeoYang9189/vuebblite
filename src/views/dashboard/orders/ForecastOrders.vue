@@ -441,6 +441,24 @@ import {
 } from "@arco-design/web-vue/es/icon";
 import { Message } from "@arco-design/web-vue";
 
+// 定义订单类型接口
+interface OrderItem {
+  id: number;
+  orderNumber: string;
+  customerName: string;
+  trackingNumber: string;
+  status: string;
+  shipMethod: string;
+  destination: string;
+  createTime: string;
+  estimatedDelivery: string;
+  operator: string;
+  weight: number;
+  volume: number;
+  packages: number;
+  remarks: string;
+}
+
 export default defineComponent({
   name: "ForecastOrders",
   components: {
@@ -495,7 +513,7 @@ export default defineComponent({
 
     // 表格数据和分页
     const loading = ref(false);
-    const orderList = ref([]);
+    const orderList = ref<OrderItem[]>([]);
     const pagination = reactive({
       current: 1,
       pageSize: 10,
@@ -563,7 +581,7 @@ export default defineComponent({
     const showRecoverOrderModal = ref(false);
 
     // 当前操作的订单
-    const currentOrder = ref(null);
+    const currentOrder = ref<OrderItem | null>(null);
 
     // 订单表单数据
     const orderForm = reactive({
@@ -609,7 +627,7 @@ export default defineComponent({
     };
 
     // 查看订单详情
-    const viewOrderDetail = record => {
+    const viewOrderDetail = (record: OrderItem) => {
       currentOrder.value = record;
       showOrderDetailModal.value = true;
     };
@@ -620,7 +638,7 @@ export default defineComponent({
     };
 
     // 编辑订单
-    const editOrder = record => {
+    const editOrder = (record: OrderItem) => {
       currentOrder.value = record;
       // 填充表单数据
       orderForm.customerName = record.customerName;
@@ -661,7 +679,7 @@ export default defineComponent({
     };
 
     // 取消订单
-    const cancelOrder = record => {
+    const cancelOrder = (record: OrderItem) => {
       currentOrder.value = record;
       showCancelOrderModal.value = true;
     };
@@ -681,7 +699,7 @@ export default defineComponent({
     };
 
     // 恢复订单
-    const recoverOrder = record => {
+    const recoverOrder = (record: OrderItem) => {
       currentOrder.value = record;
       showRecoverOrderModal.value = true;
     };
