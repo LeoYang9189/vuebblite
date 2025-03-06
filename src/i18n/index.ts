@@ -1,4 +1,5 @@
 import { createI18n } from "vue-i18n";
+import { getStoredLanguage, DEFAULT_LANGUAGE } from '@/utils/languageUtils';
 
 // 中文语言包
 const zh = {
@@ -1162,17 +1163,15 @@ const jp = {
 };
 
 const i18n = createI18n({
-  legacy: false, // 使用Composition API
-  locale: localStorage.getItem("preferredLanguage") || "zh", // 从localStorage获取保存的语言设置
-  fallbackLocale: "zh", // 如果找不到翻译，使用中文作为后备语言
+  legacy: false,
+  locale: getStoredLanguage(),
+  fallbackLocale: DEFAULT_LANGUAGE,
   messages: {
     zh,
     en,
     jp,
   },
-  // 添加全局配置
-  globalInjection: true, // 允许全局注入$t函数
-  // 添加日期时间格式化配置
+  globalInjection: true,
   datetimeFormats: {
     zh: {
       short: {
@@ -1221,5 +1220,8 @@ const i18n = createI18n({
     }
   }
 });
+
+// 初始化时设置HTML lang属性
+document.querySelector('html')?.setAttribute('lang', getStoredLanguage());
 
 export default i18n;
