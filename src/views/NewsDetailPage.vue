@@ -5,7 +5,7 @@
       <div class="banner-overlay"></div>
       <div class="container">
         <div class="banner-content">
-          <h2 class="banner-title">资讯中心</h2>
+          <h2 class="banner-title">{{ t('news.title') }}</h2>
         </div>
       </div>
     </section>
@@ -19,15 +19,15 @@
 
           <!-- 文章元信息 -->
           <div class="news-meta">
-            <span class="meta-item">时间: {{ newsDetail.date }}</span>
-            <span class="meta-item">作者: {{ newsDetail.author }}</span>
-            <span class="meta-item">来源: {{ newsDetail.source }}</span>
-            <span class="meta-item">浏览量: {{ newsDetail.views }}</span>
+            <span class="meta-item">{{ t('news.detail.meta.time') }}: {{ newsDetail.date }}</span>
+            <span class="meta-item">{{ t('news.detail.meta.author') }}: {{ newsDetail.author }}</span>
+            <span class="meta-item">{{ t('news.detail.meta.source') }}: {{ newsDetail.source }}</span>
+            <span class="meta-item">{{ t('news.detail.meta.views') }}: {{ newsDetail.views }}</span>
           </div>
 
           <!-- 主图 -->
           <div class="news-main-image">
-            <img :src="newsDetail.image" alt="新闻图片" />
+            <img :src="newsDetail.image" :alt="t('news.imageAlt')" />
           </div>
 
           <!-- 文章内容 -->
@@ -36,7 +36,7 @@
 
         <!-- 右侧热点推荐 -->
         <div class="news-sidebar">
-          <h3 class="sidebar-title">热点资讯</h3>
+          <h3 class="sidebar-title">{{ t('news.detail.hotNews') }}</h3>
 
           <div class="hot-news-list">
             <div
@@ -46,7 +46,7 @@
               @click="goToNews(item.id)"
             >
               <div class="hot-news-image">
-                <img :src="item.image" alt="推荐新闻" />
+                <img :src="item.image" :alt="t('news.detail.recommendedNews')" />
               </div>
               <div class="hot-news-info">
                 <h4 class="hot-news-title">{{ item.title }}</h4>
@@ -56,7 +56,7 @@
           </div>
 
           <div class="more-news">
-            <router-link to="/news" class="more-link">查看更多</router-link>
+            <router-link to="/news" class="more-link">{{ t('news.detail.viewMore') }}</router-link>
           </div>
         </div>
       </div>
@@ -67,12 +67,14 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "NewsDetailPage",
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const { t } = useI18n();
 
     // 获取新闻ID
     const newsId = route.params.id;
@@ -169,6 +171,7 @@ export default defineComponent({
       newsDetail,
       relatedNews,
       goToNews,
+      t,
     };
   },
 });

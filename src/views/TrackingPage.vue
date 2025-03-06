@@ -3,7 +3,7 @@
     <!-- 顶部图片横幅 -->
     <div class="tracking-banner">
       <div class="container">
-        <h1 class="tracking-title">货物跟踪</h1>
+        <h1 class="tracking-title">{{ t('tracking.title') }}</h1>
       </div>
     </div>
 
@@ -13,21 +13,22 @@
         <div class="search-box">
           <!-- 下拉框 -->
           <select class="search-select">
-            <option>HBL NO./ MBL NO./业务参考号</option>
-            <option>集装箱号</option>
+            <option>{{ t('tracking.searchType.order') }}</option>
+            <option>{{ t('tracking.searchType.container') }}</option>
+            <option>{{ t('tracking.searchType.bill') }}</option>
           </select>
 
           <!-- 输入框 -->
           <input
             type="text"
             class="search-input"
-            placeholder="XYE25021657"
+            :placeholder="t('tracking.placeholder')"
             v-model="trackingNumber"
           />
 
           <!-- 查询按钮 -->
           <button class="search-button" @click="searchTracking">
-            <i class="fas fa-search"></i> 查询
+            <i class="fas fa-search"></i> {{ t('tracking.search') }}
           </button>
         </div>
       </div>
@@ -43,28 +44,28 @@
                   <i class="fas fa-check"></i>
                 </div>
                 <div class="progress-info">
-                  <h3>订舱 (订舱完成)</h3>
+                  <h3>{{ t('tracking.progress.booking') }}</h3>
                   <p>2025-02-25 14:23:41</p>
                 </div>
               </div>
               <div class="progress-item">
                 <div class="progress-dot"></div>
                 <div class="progress-info">
-                  <h3>提单 (未制发)</h3>
+                  <h3>{{ t('tracking.progress.bl') }}</h3>
                   <p>-</p>
                 </div>
               </div>
               <div class="progress-item">
                 <div class="progress-dot"></div>
                 <div class="progress-info">
-                  <h3>离港 (未开始)</h3>
+                  <h3>{{ t('tracking.progress.departure') }}</h3>
                   <p>-</p>
                 </div>
               </div>
               <div class="progress-item">
                 <div class="progress-dot"></div>
                 <div class="progress-info">
-                  <h3>已到港 (未开始)</h3>
+                  <h3>{{ t('tracking.progress.arrival') }}</h3>
                   <p>-</p>
                 </div>
               </div>
@@ -74,7 +75,7 @@
           <!-- 右侧信息区域 -->
           <div class="info-section">
             <div class="basic-info-section">
-              <h2>基本信息</h2>
+              <h2>{{ t('tracking.result.basicInfo') }}</h2>
 
               <!-- 船舶信息 -->
               <div class="vessel-info">
@@ -82,7 +83,7 @@
                   <i class="fas fa-ship"></i>
                 </div>
                 <div class="vessel-name-voyage">
-                  <span class="label">船名 / 航次</span>
+                  <span class="label">{{ t('tracking.result.vesselName') }}</span>
                   <span class="value">MARTI STAR II/V.2503E</span>
                 </div>
               </div>
@@ -92,52 +93,56 @@
                 <div class="port-column">
                   <div class="port-label">
                     <i class="fas fa-anchor"></i>
-                    <span>起运港</span>
+                    <span>{{ t('tracking.result.portInfo.departure') }}</span>
                   </div>
                   <div class="port-name">ZHAPU,CHINA</div>
-                  <div class="port-date"><span>ETD</span>2025-02-28 00:00:00</div>
+                  <div class="port-date">
+                    <span>{{ t('tracking.result.portInfo.etd') }}</span>2025-02-28 00:00:00
+                  </div>
                 </div>
 
                 <div class="port-column">
                   <div class="port-label">
                     <i class="fas fa-anchor"></i>
-                    <span>目的港</span>
+                    <span>{{ t('tracking.result.portInfo.destination') }}</span>
                   </div>
                   <div class="port-name">NAGOYA</div>
-                  <div class="port-date"><span>ETA</span>2025-03-04 00:00:00</div>
+                  <div class="port-date">
+                    <span>{{ t('tracking.result.portInfo.eta') }}</span>2025-03-04 00:00:00
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="detail-info-section">
-              <h2>详细信息</h2>
+              <h2>{{ t('tracking.result.detailInfo') }}</h2>
               <div class="detail-table">
                 <div class="detail-row">
                   <div class="detail-cell">
-                    <span class="label">箱型</span>
+                    <span class="label">{{ t('tracking.result.containerInfo.type') }}</span>
                     <span class="value">1*20GP</span>
                   </div>
                   <div class="detail-cell">
-                    <span class="label">客户参考号</span>
+                    <span class="label">{{ t('tracking.result.cargoInfo.reference') }}</span>
                     <span class="value">25QX0009</span>
                   </div>
                   <div class="detail-cell">
-                    <span class="label">MBL No.</span>
+                    <span class="label">{{ t('tracking.result.cargoInfo.mbl') }}</span>
                     <span class="value">NOSZP25NG04330</span>
                   </div>
                 </div>
 
                 <div class="detail-row">
                   <div class="detail-cell">
-                    <span class="label">HBL No.</span>
+                    <span class="label">{{ t('tracking.result.cargoInfo.hbl') }}</span>
                     <span class="value">XYE25021657</span>
                   </div>
                   <div class="detail-cell">
-                    <span class="label">PCS</span>
+                    <span class="label">{{ t('tracking.result.cargoInfo.pcs') }}</span>
                     <span class="value">200</span>
                   </div>
                   <div class="detail-cell">
-                    <span class="label">CBM</span>
+                    <span class="label">{{ t('tracking.result.cargoInfo.cbm') }}</span>
                     <span class="value">3300</span>
                   </div>
                 </div>
@@ -148,11 +153,11 @@
                     <span class="value">-</span>
                   </div>
                   <div class="detail-cell">
-                    <span class="label">箱号</span>
+                    <span class="label">{{ t('tracking.result.containerInfo.number') }}</span>
                     <span class="value">NBYU0149017</span>
                   </div>
                   <div class="detail-cell">
-                    <span class="label">封号</span>
+                    <span class="label">{{ t('tracking.result.containerInfo.seal') }}</span>
                     <span class="value">NOS3215854</span>
                   </div>
                 </div>
@@ -161,11 +166,11 @@
 
             <!-- 附件信息作为独立模块 -->
             <div class="detail-info-section">
-              <h2>附件信息</h2>
+              <h2>{{ t('tracking.result.attachments') }}</h2>
               <div class="detail-table">
                 <div class="detail-row">
                   <div class="detail-cell attachment-cell">
-                    <span class="value">暂无附件</span>
+                    <span class="value">{{ t('tracking.result.noAttachments') }}</span>
                   </div>
                 </div>
               </div>
@@ -179,10 +184,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "CargoTrackingPage",
   setup() {
+    const { t } = useI18n();
     const trackingNumber = ref("XYE25021657");
     const showResults = ref(true); // 默认显示结果，方便测试
 
@@ -196,6 +203,7 @@ export default defineComponent({
       trackingNumber,
       showResults,
       searchTracking,
+      t
     };
   },
 });

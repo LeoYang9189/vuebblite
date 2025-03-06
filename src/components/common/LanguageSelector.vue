@@ -32,6 +32,7 @@
 import { defineComponent, ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
+import { Message } from "@arco-design/web-vue";
 
 interface Language {
   name: string;
@@ -42,7 +43,7 @@ export default defineComponent({
   name: "LanguageSelector",
   setup() {
     const store = useStore();
-    const { locale } = useI18n();
+    const { locale, t } = useI18n();
     const showOptions = ref(false);
     const selectorRef = ref<HTMLElement | null>(null);
 
@@ -51,6 +52,13 @@ export default defineComponent({
       { name: "English", code: "en" },
       { name: "日本語", code: "jp" },
     ];
+
+    // 从localStorage获取保存的语言设置
+    const savedLanguage = localStorage.getItem("preferredLanguage");
+    if (savedLanguage && languages.some(lang => lang.code === savedLanguage)) {
+      store.commit("setLanguage", savedLanguage);
+      locale.value = savedLanguage;
+    }
 
     const currentLangCode = computed(() => store.getters.currentLanguage);
 
@@ -63,12 +71,24 @@ export default defineComponent({
       showOptions.value = !showOptions.value;
     };
 
-    const changeLanguage = (lang: Language) => {
-      store.commit("setLanguage", lang.code);
-      locale.value = lang.code;
-      showOptions.value = false;
-
-      console.log(`已切换至${lang.name}版本`);
+    const changeLanguage = async (lang: Language) => {
+      try {
+        // 更新store
+        store.commit("setLanguage", lang.code);
+        // 更新i18n locale
+        locale.value = lang.code as "zh" | "en" | "jp";
+        // 保存到localStorage
+        localStorage.setItem("preferredLanguage", lang.code);
+        // 强制重新渲染整个应用
+        window.location.reload();
+        // 关闭下拉菜单
+        showOptions.value = false;
+        // 显示成功消息
+        Message.success(t("common.languageChanged"));
+      } catch (error) {
+        console.error("Failed to change language:", error);
+        Message.error("Failed to change language");
+      }
     };
 
     // 点击外部时关闭选项
@@ -96,7 +116,7 @@ export default defineComponent({
         top: `${rect.bottom}px`,
         left: `${rect.left}px`,
         width: `${rect.width}px`,
-        zIndex: 1000, // 高z-index确保在其他元素之上
+        zIndex: 1000,
       };
     });
 

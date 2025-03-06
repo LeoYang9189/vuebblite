@@ -4,29 +4,29 @@
     <div class="register-box">
       <div class="register-header">
         <div class="logo">
-          <img src="@/assets/images/logo.png" alt="WALLTECH FAMILY" />
+          <img src="@/assets/images/logo.png" :alt="t('about.companyProfile.title')" />
         </div>
-        <h2>沃行货运网</h2>
+        <h2>{{ t('about.companyProfile.title') }}</h2>
       </div>
       
       <div class="form-group">
-        <div class="form-label">手机/邮箱 (仅支持中国大陆的手机号)</div>
+        <div class="form-label">{{ t('auth.phoneOrEmail') }} ({{ t('auth.phoneOnlyMainland') }})</div>
         <input
           type="text"
           class="form-input"
           v-model="formData.phone"
-          placeholder="请输入您的手机/邮箱"
+          :placeholder="t('common.pleaseInput') + t('auth.phoneOrEmail')"
         />
       </div>
       
       <div class="form-group">
-        <div class="form-label">短信/邮件验证码</div>
+        <div class="form-label">{{ t('auth.verifyCode') }}</div>
         <div class="verify-code-group">
           <input
             type="text"
             class="form-input"
             v-model="formData.verifyCode"
-            placeholder="请输入验证码"
+            :placeholder="t('common.pleaseInput') + t('auth.verifyCode')"
           />
           <button
             type="button"
@@ -34,7 +34,7 @@
             @click="getVerifyCode"
             :disabled="loading || !!countdown"
           >
-            {{ countdown ? `${countdown}s` : "获取验证码" }}
+            {{ countdown ? `${countdown}s` : t('auth.getVerifyCode') }}
           </button>
         </div>
       </div>
@@ -42,7 +42,7 @@
       <div class="checkbox-group">
         <label class="checkbox-container">
           <input type="checkbox" v-model="formData.joinExistingCompany" />
-          <span class="checkbox-text">所在企业已入驻，直接加入企业</span>
+          <span class="checkbox-text">{{ t('auth.joinExistingCompany') }}</span>
         </label>
       </div>
       
@@ -51,7 +51,7 @@
           type="text"
           class="form-input"
           v-model="formData.companyCode"
-          placeholder="请输入企业提供的企业码"
+          :placeholder="t('auth.enterCompanyCode')"
         />
       </div>
       
@@ -59,18 +59,18 @@
         <label class="checkbox-container">
           <input type="checkbox" v-model="formData.agreeTerms" />
           <span class="checkbox-text">
-            我已阅读并接受<a href="#" class="link">《用户协议》</a>
+            {{ t('auth.agreeTerms') }}<a href="#" class="link">{{ t('auth.terms') }}</a>
           </span>
         </label>
       </div>
       
       <button class="register-button" @click="handleSubmit" :disabled="loading">
-        {{ loading ? "注册中..." : "注册" }}
+        {{ loading ? t('common.loading') : t('auth.register') }}
       </button>
       
       <div class="register-links">
-        <span>已注册，</span>
-        <router-link to="/login" class="link">立即登录</router-link>
+        <span>{{ t('auth.hasAccount') }}</span>
+        <router-link to="/login" class="link">{{ t('auth.login') }}</router-link>
       </div>
     </div>
   </div>
@@ -78,6 +78,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";
 
@@ -85,6 +86,7 @@ export default defineComponent({
   name: "RegisterPage",
   setup() {
     const router = useRouter();
+    const { t } = useI18n();
     const loading = ref(false);
     const countdown = ref(0);
 
@@ -99,14 +101,14 @@ export default defineComponent({
     const getVerifyCode = async () => {
       try {
         if (!formData.phone) {
-          Message.warning("请先输入手机号或邮箱");
+          Message.warning(t('common.pleaseInput') + t('auth.phoneOrEmail'));
           return;
         }
 
         loading.value = true;
         // TODO: 调用发送验证码接口
         await new Promise(resolve => setTimeout(resolve, 1000));
-        Message.success("验证码已发送");
+        Message.success(t('auth.verifyCodeSent'));
 
         // 开始倒计时
         countdown.value = 60;
@@ -117,7 +119,7 @@ export default defineComponent({
           }
         }, 1000);
       } catch (error) {
-        Message.error("验证码发送失败");
+        Message.error(t('auth.verifyCodeSendFailed'));
       } finally {
         loading.value = false;
       }
@@ -127,32 +129,32 @@ export default defineComponent({
       try {
         // 表单验证
         if (!formData.phone) {
-          Message.warning("请输入手机号或邮箱");
+          Message.warning(t('common.pleaseInput') + t('auth.phoneOrEmail'));
           return;
         }
         
         if (!formData.verifyCode) {
-          Message.warning("请输入验证码");
+          Message.warning(t('common.pleaseInput') + t('auth.verifyCode'));
           return;
         }
         
         if (formData.joinExistingCompany && !formData.companyCode) {
-          Message.warning("请输入企业编码");
+          Message.warning(t('common.pleaseInput') + t('auth.companyCode'));
           return;
         }
         
         if (!formData.agreeTerms) {
-          Message.warning("请阅读并接受用户协议");
+          Message.warning(t('auth.pleaseAgreeTerms'));
           return;
         }
 
         loading.value = true;
         // TODO: 实现注册逻辑
         await new Promise(resolve => setTimeout(resolve, 1000));
-        Message.success("注册成功");
+        Message.success(t('auth.registerSuccess'));
         router.push("/login");
       } catch (error) {
-        Message.error("注册失败");
+        Message.error(t('auth.registerFailed'));
       } finally {
         loading.value = false;
       }
@@ -164,6 +166,7 @@ export default defineComponent({
       countdown,
       handleSubmit,
       getVerifyCode,
+      t
     };
   },
 });

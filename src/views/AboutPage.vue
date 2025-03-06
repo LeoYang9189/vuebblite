@@ -3,7 +3,7 @@
     <!-- 顶部横幅 - 与其他页面保持一致 -->
     <div class="tracking-banner">
       <div class="container">
-        <h1 class="tracking-title">关于我们</h1>
+        <h1 class="tracking-title">{{ t('about.title') }}</h1>
       </div>
     </div>
 
@@ -17,63 +17,57 @@
           :class="{ active: activeTab === tab.id }"
           @click="scrollToSection(tab.id)"
         >
-          <span>{{ tab.name }}</span>
+          <span>{{ t(`about.${tab.id}`) }}</span>
         </div>
       </div>
 
       <!-- 公司简介 -->
       <section id="company" class="about-section company-section">
         <div class="section-header">
-          <h2>公司简介</h2>
+          <h2>{{ t('about.company') }}</h2>
           <div class="section-divider"></div>
         </div>
 
         <div class="company-content">
           <div class="company-image">
-            <img src="@/assets/images/about-company.jpg" alt="公司简介" />
+            <img :src="require('@/assets/images/about-company.jpg')" :alt="t('about.company')" />
           </div>
           <div class="company-text">
             <div class="intro-point">
               <i class="fas fa-angle-right point-icon"></i>
-              <p>
-                上海沃行航运有限公司，已正式获中国交通运输部认可，荣膺无船承运人（NVOCC）资质。凭借专业与实力，公司以"上海沃行"之名广为人知，且作为上海航运交易所(Shanghai
-                Shipping
-                Exchange)的正式会员，我们持续专注于海运、空运领域，深耕中国至日本市场，业务规模持续扩展，服务品质稳步提升。
-              </p>
+              <p>{{ t('about.companyProfile.content') }}</p>
             </div>
             <div class="intro-point">
               <i class="fas fa-angle-right point-icon"></i>
-              <p>
-                展望未来，我们将坚守初心，致力于优化货物运输流程，不断提升运输效率与服务质量，为全球客户打造更卓越、更高效的物流体验。
-              </p>
+              <p>{{ t('about.companyProfile.vision') }}</p>
             </div>
           </div>
         </div>
 
         <div class="company-stats">
           <div class="stat-item">
-            <div class="stat-number"><span ref="yearsCount">0</span><span>年+</span></div>
-            <div class="stat-desc">行业经验</div>
+            <div class="stat-number"><span ref="yearsCount">0</span><span>{{ t('about.stats.years') }}</span></div>
+            <div class="stat-desc">{{ t('about.stats.experience') }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number"><span ref="teamCount">0</span><span>+</span></div>
-            <div class="stat-desc">专业团队</div>
+            <div class="stat-desc">{{ t('about.stats.team') }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number"><span ref="clientCount">0</span><span>+</span></div>
-            <div class="stat-desc">合作客户</div>
+            <div class="stat-desc">{{ t('about.stats.clients') }}</div>
           </div>
           <div class="stat-item">
             <div class="stat-number"><span ref="satisfactionCount">0</span><span>%</span></div>
-            <div class="stat-desc">客户满意度</div>
+            <div class="stat-desc">{{ t('about.stats.satisfaction') }}</div>
           </div>
         </div>
       </section>
 
-      <!-- 发展历程 - 新设计 -->
+      <!-- 发展历程 -->
       <section id="history" class="about-section history-section">
         <div class="section-header">
-          <h2>发展历程</h2>
+          <h2>{{ t('about.history') }}</h2>
           <div class="section-divider"></div>
         </div>
 
@@ -89,10 +83,10 @@
             </div>
             <div class="timeline-panel">
               <div class="timeline-heading">
-                <h3>{{ item.title }}</h3>
+                <h3>{{ t(`about.timeline.${item.id}.title`) }}</h3>
               </div>
               <div class="timeline-body">
-                <p>{{ item.description }}</p>
+                <p>{{ t(`about.timeline.${item.id}.description`) }}</p>
               </div>
             </div>
           </div>
@@ -102,7 +96,7 @@
       <!-- 企业文化 -->
       <section id="culture" class="about-section culture-section">
         <div class="section-header">
-          <h2>企业文化</h2>
+          <h2>{{ t('about.culture') }}</h2>
           <div class="section-divider"></div>
         </div>
 
@@ -111,36 +105,36 @@
             <div class="culture-icon">
               <i class="fas fa-eye"></i>
             </div>
-            <h3>企业愿景</h3>
-            <p>成为全球领先的综合物流服务提供商，以创新科技重塑物流行业未来。</p>
+            <h3>{{ t('about.companyCulture.vision') }}</h3>
+            <p>{{ t('about.companyCulture.visionContent') }}</p>
           </div>
 
           <div class="culture-item">
             <div class="culture-icon">
               <i class="fas fa-bullseye"></i>
             </div>
-            <h3>企业使命</h3>
-            <p>以卓越的物流服务连接世界，让全球贸易更便捷、更高效。</p>
+            <h3>{{ t('about.companyCulture.mission') }}</h3>
+            <p>{{ t('about.companyCulture.missionContent') }}</p>
           </div>
 
           <div class="culture-item">
             <div class="culture-icon">
               <i class="fas fa-handshake"></i>
             </div>
-            <h3>核心价值观</h3>
-            <p>诚信为本、客户至上、创新驱动、协作共赢、追求卓越。</p>
+            <h3>{{ t('about.companyCulture.values') }}</h3>
+            <p>{{ t('about.companyCulture.valuesContent') }}</p>
           </div>
         </div>
 
         <div class="culture-image">
-          <img src="@/assets/images/company-culture.jpg" alt="企业文化" />
+          <img :src="require('@/assets/images/company-culture.jpg')" :alt="t('about.culture')" />
         </div>
       </section>
 
       <!-- 联系我们 -->
       <section id="contact" class="about-section contact-section">
         <div class="section-header">
-          <h2>联系我们</h2>
+          <h2>{{ t('about.contact') }}</h2>
           <div class="section-divider"></div>
         </div>
 
@@ -152,15 +146,15 @@
               <div class="contact-icon">
                 <i class="fas fa-map-marker-alt"></i>
               </div>
-              <div class="contact-label">公司地址</div>
-              <div class="contact-value">上海市虹口区周家嘴路699号中坤广场A座9F</div>
+              <div class="contact-label">{{ t('footer.address') }}</div>
+              <div class="contact-value">{{ t('about.companyAddress') }}</div>
             </div>
 
             <div class="contact-item">
               <div class="contact-icon">
                 <i class="fas fa-phone"></i>
               </div>
-              <div class="contact-label">联系电话</div>
+              <div class="contact-label">{{ t('common.phone') }}</div>
               <div class="contact-value">021-65143931转826</div>
             </div>
 
@@ -168,7 +162,7 @@
               <div class="contact-icon">
                 <i class="fas fa-envelope"></i>
               </div>
-              <div class="contact-label">电子邮箱</div>
+              <div class="contact-label">{{ t('common.email') }}</div>
               <div class="contact-value">b2b-service@walltechsystem.com</div>
             </div>
 
@@ -176,8 +170,8 @@
               <div class="contact-icon">
                 <i class="fas fa-clock"></i>
               </div>
-              <div class="contact-label">工作时间</div>
-              <div class="contact-value">周一至周五: 9:00 - 18:00</div>
+              <div class="contact-label">{{ t('footer.workingHours') }}</div>
+              <div class="contact-value">{{ t('footer.workingTime') }}</div>
             </div>
           </div>
         </div>
@@ -187,47 +181,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "AboutPage",
   setup() {
+    const { t } = useI18n();
     const activeTab = ref("company");
 
-    const tabs = [
-      { id: "company", name: "公司简介" },
-      { id: "history", name: "发展历程" },
-      { id: "culture", name: "企业文化" },
-      { id: "contact", name: "联系我们" },
-    ];
+    const tabs = computed(() => [
+      { id: "company", name: t('about.company') },
+      { id: "history", name: t('about.history') },
+      { id: "culture", name: t('about.culture') },
+      { id: "contact", name: t('about.contact') },
+    ]);
 
-    const historyItems = [
+    const historyItems = computed(() => [
       {
+        id: "2012",
         year: "2012",
-        title: "公司成立",
-        description: "上海沃行航运有限公司在上海成立，开始提供基础的物流服务。",
+        title: t('about.timeline.2012.title'),
+        description: t('about.timeline.2012.description'),
       },
       {
+        id: "2015",
         year: "2015",
-        title: "业务扩展",
-        description: "获得无船承运人(NVOCC)资质，业务范围扩展至全国主要港口。",
+        title: t('about.timeline.2015.title'),
+        description: t('about.timeline.2015.description'),
       },
       {
+        id: "2018",
         year: "2018",
-        title: "数字化转型",
-        description: "引入先进物流管理系统，开启公司数字化转型之路。",
+        title: t('about.timeline.2018.title'),
+        description: t('about.timeline.2018.description'),
       },
       {
+        id: "2020",
         year: "2020",
-        title: "全球化布局",
-        description: "建立全球物流服务网络，与超过50个国家的物流合作伙伴建立稳定关系。",
+        title: t('about.timeline.2020.title'),
+        description: t('about.timeline.2020.description'),
       },
       {
+        id: "2023",
         year: "2023",
-        title: "技术创新",
-        description: "推出B2B物流服务平台，为客户提供一站式在线物流解决方案。",
+        title: t('about.timeline.2023.title'),
+        description: t('about.timeline.2023.description'),
       },
-    ];
+    ]);
 
     const scrollToSection = (sectionId: string) => {
       activeTab.value = sectionId;
@@ -313,6 +314,7 @@ export default defineComponent({
     });
 
     return {
+      t,
       activeTab,
       tabs,
       historyItems,

@@ -3,7 +3,7 @@
     <!-- 使用与TrackingPage完全相同的class名称和HTML结构 -->
     <div class="tracking-banner">
       <div class="container">
-        <h1 class="tracking-title">业务介绍</h1>
+        <h1 class="tracking-title">{{ t('service.title') }}</h1>
       </div>
     </div>
 
@@ -21,7 +21,7 @@
           <div class="service-nav-icon">
             <i :class="nav.icon"></i>
           </div>
-          <div class="service-nav-text">{{ nav.title }}</div>
+          <div class="service-nav-text">{{ t(`service.${nav.id}.title`) }}</div>
         </div>
       </div>
     </section>
@@ -35,72 +35,68 @@
         :class="{ active: activeService === 'booking' }"
       >
         <div class="service-header">
-          <h2>订舱服务</h2>
-          <p>专业高效的货物订舱解决方案，覆盖全球主要港口</p>
+          <h2>{{ t('service.booking.title') }}</h2>
+          <p>{{ t('service.booking.subtitle') }}</p>
         </div>
 
         <div class="service-content">
           <div class="service-intro">
             <div class="intro-image">
-              <img src="@/assets/images/booking-service.jpg" alt="订舱服务" />
+              <img src="@/assets/images/booking-service.jpg" :alt="t('service.booking.title')" />
             </div>
             <div class="intro-text">
-              <h3>服务概述</h3>
-              <p>
-                我们提供全方位的订舱服务，让您的货物运输更加便捷高效。通过我们的B2B平台，您可以随时查询船期、舱位，并一键提交订舱申请。我们与各大船公司保持密切合作关系，确保您的货物能够按时装船发运。
-              </p>
-              <p>
-                我们的订舱服务涵盖全球主要航线，无论您需要整箱(FCL)还是拼箱(LCL)服务，都能得到专业的支持和保障。通过数字化流程优化，我们大大缩短了订舱确认时间，提高了运输效率。
-              </p>
+              <h3>{{ t('service.overview') }}</h3>
+              <p>{{ t('service.booking.description.part1') }}</p>
+              <p>{{ t('service.booking.description.part2') }}</p>
             </div>
           </div>
 
           <!-- 服务特点 -->
           <div class="service-features">
-            <h3 class="section-subtitle">服务特点</h3>
+            <h3 class="section-subtitle">{{ t('service.features') }}</h3>
             <div class="features-grid">
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-ship"></i>
                 </div>
-                <h4>全球航线覆盖</h4>
-                <p>我们提供覆盖全球主要港口的航线服务，满足您不同航线的运输需求。</p>
+                <h4>{{ t('service.booking.features.globalCoverage') }}</h4>
+                <p>{{ t('service.booking.features.globalCoverageDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-clock"></i>
                 </div>
-                <h4>快速舱位确认</h4>
-                <p>借助先进的系统和专业团队，我们提供快速的舱位确认服务，缩短等待时间。</p>
+                <h4>{{ t('service.booking.features.quickConfirmation') }}</h4>
+                <p>{{ t('service.booking.features.quickConfirmationDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-box"></i>
                 </div>
-                <h4>整箱与拼箱</h4>
-                <p>无论是整箱还是拼箱货物，我们都能提供专业的订舱解决方案。</p>
+                <h4>{{ t('service.booking.features.flexibleService') }}</h4>
+                <p>{{ t('service.booking.features.flexibleServiceDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-chart-line"></i>
                 </div>
-                <h4>实时数据追踪</h4>
-                <p>通过我们的平台，您可以实时追踪船期变动和舱位状态，掌握最新动态。</p>
+                <h4>{{ t('service.booking.features.realTimeTracking') }}</h4>
+                <p>{{ t('service.booking.features.realTimeTrackingDesc') }}</p>
               </div>
             </div>
           </div>
 
           <!-- 服务流程 -->
           <div class="service-process">
-            <h3 class="section-subtitle">服务流程</h3>
+            <h3 class="section-subtitle">{{ t('service.process') }}</h3>
             <div class="process-timeline">
               <div class="process-item">
                 <div class="process-dot">
                   <span>1</span>
                 </div>
                 <div class="process-content">
-                  <h4>提交需求</h4>
-                  <p>通过我们的平台或客服人员，提交您的订舱需求和相关信息。</p>
+                  <h4>{{ t('service.booking.process.step1.title') }}</h4>
+                  <p>{{ t('service.booking.process.step1.desc') }}</p>
                 </div>
               </div>
 
@@ -109,8 +105,8 @@
                   <span>2</span>
                 </div>
                 <div class="process-content">
-                  <h4>查询报价</h4>
-                  <p>我们将为您提供最优的航线和价格方案，供您选择。</p>
+                  <h4>{{ t('service.booking.process.step2.title') }}</h4>
+                  <p>{{ t('service.booking.process.step2.desc') }}</p>
                 </div>
               </div>
 
@@ -119,8 +115,8 @@
                   <span>3</span>
                 </div>
                 <div class="process-content">
-                  <h4>确认订舱</h4>
-                  <p>确认方案后，我们将为您完成正式订舱流程。</p>
+                  <h4>{{ t('service.booking.process.step3.title') }}</h4>
+                  <p>{{ t('service.booking.process.step3.desc') }}</p>
                 </div>
               </div>
 
@@ -129,8 +125,8 @@
                   <span>4</span>
                 </div>
                 <div class="process-content">
-                  <h4>舱位确认</h4>
-                  <p>获取船公司的舱位确认并通知您相关装货信息。</p>
+                  <h4>{{ t('service.booking.process.step4.title') }}</h4>
+                  <p>{{ t('service.booking.process.step4.desc') }}</p>
                 </div>
               </div>
 
@@ -139,8 +135,8 @@
                   <span>5</span>
                 </div>
                 <div class="process-content">
-                  <h4>追踪管理</h4>
-                  <p>全程追踪货物状态，确保运输顺利完成。</p>
+                  <h4>{{ t('service.booking.process.step5.title') }}</h4>
+                  <p>{{ t('service.booking.process.step5.desc') }}</p>
                 </div>
               </div>
             </div>
@@ -155,57 +151,53 @@
         :class="{ active: activeService === 'customs' }"
       >
         <div class="service-header">
-          <h2>报关服务</h2>
-          <p>专业的通关解决方案，简化您的进出口流程</p>
+          <h2>{{ t('service.customs.title') }}</h2>
+          <p>{{ t('service.customs.subtitle') }}</p>
         </div>
 
         <div class="service-content">
           <div class="service-intro">
             <div class="intro-image">
-              <img src="@/assets/images/customs-service.jpg" alt="报关服务" />
+              <img src="@/assets/images/customs-service.jpg" :alt="t('service.customs.title')" />
             </div>
             <div class="intro-text">
-              <h3>服务概述</h3>
-              <p>
-                我们提供全面的进出口报关服务，帮助您的货物顺利通过海关检查。凭借丰富的经验和专业知识，我们能够处理各种复杂的报关情况，确保文件准确无误，手续合规合法。
-              </p>
-              <p>
-                我们的报关团队熟悉各国海关规定和进出口政策，能够为您提供最及时、最专业的报关建议，帮助您避免因文件不合规而导致的货物滞留、罚款等问题。
-              </p>
+              <h3>{{ t('service.overview') }}</h3>
+              <p>{{ t('service.customs.description.part1') }}</p>
+              <p>{{ t('service.customs.description.part2') }}</p>
             </div>
           </div>
 
           <!-- 服务特点 -->
           <div class="service-features">
-            <h3 class="section-subtitle">服务特点</h3>
+            <h3 class="section-subtitle">{{ t('service.features') }}</h3>
             <div class="features-grid">
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-file-alt"></i>
                 </div>
-                <h4>文件准备</h4>
-                <p>我们帮助您准备所有必要的报关文件，确保内容准确无误。</p>
+                <h4>{{ t('service.customs.features.documentation') }}</h4>
+                <p>{{ t('service.customs.features.documentationDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-calculator"></i>
                 </div>
-                <h4>税费计算</h4>
-                <p>专业计算进出口税费，提供最优化的税费解决方案。</p>
+                <h4>{{ t('service.customs.features.taxCalculation') }}</h4>
+                <p>{{ t('service.customs.features.taxCalculationDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-check-circle"></i>
                 </div>
-                <h4>合规检查</h4>
-                <p>严格审核所有文件，确保符合目的国和出发国的海关要求。</p>
+                <h4>{{ t('service.customs.features.compliance') }}</h4>
+                <p>{{ t('service.customs.features.complianceDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-bolt"></i>
                 </div>
-                <h4>快速通关</h4>
-                <p>优化通关流程，提高通关速度，减少货物滞留时间。</p>
+                <h4>{{ t('service.customs.features.fastClearance') }}</h4>
+                <p>{{ t('service.customs.features.fastClearanceDesc') }}</p>
               </div>
             </div>
           </div>
@@ -219,57 +211,53 @@
         :class="{ active: activeService === 'warehouse' }"
       >
         <div class="service-header">
-          <h2>仓储服务</h2>
-          <p>安全可靠的仓储解决方案，满足您的全球仓储需求</p>
+          <h2>{{ t('service.warehouse.title') }}</h2>
+          <p>{{ t('service.warehouse.subtitle') }}</p>
         </div>
 
         <div class="service-content">
           <div class="service-intro">
             <div class="intro-image">
-              <img src="@/assets/images/warehouse-service.jpg" alt="仓储服务" />
+              <img src="@/assets/images/warehouse-service.jpg" :alt="t('service.warehouse.title')" />
             </div>
             <div class="intro-text">
-              <h3>服务概述</h3>
-              <p>
-                我们提供全方位的仓储管理服务，拥有位于主要港口城市的现代化仓库设施。无论是短期存储还是长期仓储，我们都能为您的货物提供安全、专业的保障。
-              </p>
-              <p>
-                我们的仓储服务配备先进的仓库管理系统(WMS)，实现对货物的精确追踪和高效管理。我们的专业团队确保您的货物得到妥善保管，并根据您的需求提供灵活的存储解决方案。
-              </p>
+              <h3>{{ t('service.overview') }}</h3>
+              <p>{{ t('service.warehouse.description.part1') }}</p>
+              <p>{{ t('service.warehouse.description.part2') }}</p>
             </div>
           </div>
 
           <!-- 服务特点 -->
           <div class="service-features">
-            <h3 class="section-subtitle">服务特点</h3>
+            <h3 class="section-subtitle">{{ t('service.features') }}</h3>
             <div class="features-grid">
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-warehouse"></i>
                 </div>
-                <h4>现代化设施</h4>
-                <p>配备先进的仓储设施和安全系统，保障货物安全。</p>
+                <h4>{{ t('service.warehouse.features.modernFacility') }}</h4>
+                <p>{{ t('service.warehouse.features.modernFacilityDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-barcode"></i>
                 </div>
-                <h4>精确库存管理</h4>
-                <p>使用先进的WMS系统，实现精确的库存控制和货物追踪。</p>
+                <h4>{{ t('service.warehouse.features.inventory') }}</h4>
+                <p>{{ t('service.warehouse.features.inventoryDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-dolly"></i>
                 </div>
-                <h4>灵活的存取服务</h4>
-                <p>根据您的需求提供灵活的货物存取服务，满足不同业务场景。</p>
+                <h4>{{ t('service.warehouse.features.flexible') }}</h4>
+                <p>{{ t('service.warehouse.features.flexibleDesc') }}</p>
               </div>
               <div class="feature-item">
                 <div class="feature-icon">
                   <i class="fas fa-shield-alt"></i>
                 </div>
-                <h4>全方位安全保障</h4>
-                <p>24小时监控和专业安保团队，确保您的货物绝对安全。</p>
+                <h4>{{ t('service.warehouse.features.security') }}</h4>
+                <p>{{ t('service.warehouse.features.securityDesc') }}</p>
               </div>
             </div>
           </div>
@@ -280,47 +268,39 @@
     <!-- 添加公共模块：我们的实力展示 -->
     <section class="strength-section">
       <div class="container">
-        <h2 class="strength-title">我们的实力展示</h2>
+        <h2 class="strength-title">{{ t('service.strength.title') }}</h2>
 
         <div class="strength-grid">
           <div class="strength-card">
             <div class="strength-image">
-              <img src="@/assets/images/warehouse-facility.jpg" alt="现代化仓储设施" />
+              <img src="@/assets/images/warehouse-facility.jpg" :alt="t('service.strength.facility.title')" />
             </div>
-            <h3>现代化仓储设施</h3>
-            <p>
-              我们拥有超过10万平方米的现代化仓储设施，配备先进的货架系统和自动化设备，确保高效的仓储管理。
-            </p>
+            <h3>{{ t('service.strength.facility.title') }}</h3>
+            <p>{{ t('service.strength.facility.desc') }}</p>
           </div>
 
           <div class="strength-card">
             <div class="strength-image">
-              <img src="@/assets/images/global-network.jpg" alt="全球物流网络" />
+              <img src="@/assets/images/global-network.jpg" :alt="t('service.strength.network.title')" />
             </div>
-            <h3>全球物流网络</h3>
-            <p>
-              我们与全球超过100个国家和地区建立了紧密的物流合作关系，能够为客户提供全方位的国际物流服务。
-            </p>
+            <h3>{{ t('service.strength.network.title') }}</h3>
+            <p>{{ t('service.strength.network.desc') }}</p>
           </div>
 
           <div class="strength-card">
             <div class="strength-image">
-              <img src="@/assets/images/tech-system.jpg" alt="先进技术系统" />
+              <img src="@/assets/images/tech-system.jpg" :alt="t('service.strength.tech.title')" />
             </div>
-            <h3>先进技术系统</h3>
-            <p>
-              我们采用最新的物流管理系统和追踪技术，实现全程可视化管理，为客户提供实时的货物跟踪服务。
-            </p>
+            <h3>{{ t('service.strength.tech.title') }}</h3>
+            <p>{{ t('service.strength.tech.desc') }}</p>
           </div>
 
           <div class="strength-card">
             <div class="strength-image">
-              <img src="@/assets/images/professional-team.jpg" alt="专业服务团队" />
+              <img src="@/assets/images/professional-team.jpg" :alt="t('service.strength.team.title')" />
             </div>
-            <h3>专业服务团队</h3>
-            <p>
-              我们拥有一支经验丰富、专业高效的物流服务团队，能够为客户提供专业的咨询和定制化的物流解决方案。
-            </p>
+            <h3>{{ t('service.strength.team.title') }}</h3>
+            <p>{{ t('service.strength.team.desc') }}</p>
           </div>
         </div>
       </div>
@@ -330,11 +310,9 @@
     <section class="inquiry-section">
       <div class="container">
         <div class="inquiry-content">
-          <h2>需要更多业务咨询？</h2>
-          <p>
-            我们的专业团队随时为您提供详细的业务咨询和定制化解决方案，帮助您解决国际贸易和物流中的各种挑战。
-          </p>
-          <a href="#" class="contact-btn">联系我们</a>
+          <h2>{{ t('service.inquiry.title') }}</h2>
+          <p>{{ t('service.inquiry.desc') }}</p>
+          <a href="#" class="contact-btn">{{ t('service.inquiry.button') }}</a>
         </div>
       </div>
     </section>
@@ -344,18 +322,20 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "ServicePage",
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const { t } = useI18n();
     const activeService = ref("booking");
 
     const navItems = [
-      { id: "booking", title: "订舱服务", icon: "fas fa-ship" },
-      { id: "customs", title: "报关服务", icon: "fas fa-file-contract" },
-      { id: "warehouse", title: "仓储服务", icon: "fas fa-warehouse" },
+      { id: "booking", icon: "fas fa-ship" },
+      { id: "customs", icon: "fas fa-file-contract" },
+      { id: "warehouse", icon: "fas fa-warehouse" },
     ];
 
     const switchService = (serviceId: string) => {
@@ -404,6 +384,7 @@ export default defineComponent({
       activeService,
       navItems,
       switchService,
+      t
     };
   },
 });
@@ -781,5 +762,184 @@ export default defineComponent({
   margin-bottom: 15px;
   line-height: 1.6;
   color: #555;
+}
+
+/* 服务导航样式 */
+.service-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 50px;
+  padding: 20px 0;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+.service-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  min-width: 160px;
+}
+
+.service-nav-item:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.service-nav-item.active {
+  background-color: #1e5aa0;
+}
+
+.service-nav-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #1e5aa0;
+  transition: color 0.3s ease;
+}
+
+.service-nav-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.service-nav-item.active .service-nav-icon,
+.service-nav-item.active .service-nav-text {
+  color: #fff;
+}
+
+/* 服务详情区域样式 */
+.service-detail {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-detail.active {
+  display: block;
+  opacity: 1;
+}
+
+.service-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.service-header h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.service-header p {
+  font-size: 16px;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 服务特点网格布局 */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.feature-item {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 24px;
+  color: #1e5aa0;
+  margin-bottom: 15px;
+}
+
+.feature-item h4 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.feature-item p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .service-navigation {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .service-nav-item {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 15px;
+    min-width: auto;
+  }
+
+  .service-nav-icon {
+    margin-bottom: 0;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-intro {
+    flex-direction: column;
+  }
+
+  .intro-image {
+    margin-bottom: 20px;
+  }
+
+  .intro-image img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* 图片样式 */
+.intro-image {
+  flex: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.intro-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+/* 容器通用样式 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 </style>

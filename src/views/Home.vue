@@ -32,21 +32,21 @@
                   :class="{ active: activeSearchTab === 'tracking' }"
                   @click="switchSearchTab('tracking')"
                 >
-                  货物追踪
+                  {{ t('tracking.title') }}
                 </div>
                 <div
                   class="main-tab"
-                  :class="{ active: activeSearchTab === 'customs' }"
-                  @click="switchSearchTab('customs')"
+                  :class="{ active: activeSearchTab === 'schedule' }"
+                  @click="switchSearchTab('schedule')"
                 >
-                  船期查询
+                  {{ t('service.schedule.title') }}
                 </div>
                 <div
                   class="main-tab"
                   :class="{ active: activeSearchTab === 'price' }"
                   @click="switchSearchTab('price')"
                 >
-                  运价查询
+                  {{ t('service.price.title') }}
                 </div>
               </div>
 
@@ -57,44 +57,44 @@
                   :class="{ active: activeTrackingType === 'order' }"
                   @click="switchTrackingType('order')"
                 >
-                  订单号查询
+                  {{ t('tracking.searchType.order') }}
                 </div>
                 <div
                   class="sub-tab"
                   :class="{ active: activeTrackingType === 'container' }"
                   @click="switchTrackingType('container')"
                 >
-                  箱号查询
+                  {{ t('tracking.searchType.container') }}
                 </div>
               </div>
 
               <!-- 添加船期查询的二级选项卡 -->
-              <div v-if="activeSearchTab === 'customs'" class="sub-tabs">
+              <div v-if="activeSearchTab === 'schedule'" class="sub-tabs">
                 <div
                   class="sub-tab"
-                  :class="{ active: activeCustomsType === 'port' }"
-                  @click="switchCustomsType('port')"
+                  :class="{ active: activeScheduleType === 'port' }"
+                  @click="switchScheduleType('port')"
                 >
-                  按港口
+                  {{ t('service.schedule.byPort') }}
                 </div>
                 <div
                   class="sub-tab"
-                  :class="{ active: activeCustomsType === 'vessel' }"
-                  @click="switchCustomsType('vessel')"
+                  :class="{ active: activeScheduleType === 'vessel' }"
+                  @click="switchScheduleType('vessel')"
                 >
-                  按船名
+                  {{ t('service.schedule.byVessel') }}
                 </div>
               </div>
 
               <!-- 船期查询的港口搜索框 -->
               <div
-                v-if="activeSearchTab === 'customs' && activeCustomsType === 'port'"
+                v-if="activeSearchTab === 'schedule' && activeScheduleType === 'port'"
                 class="port-search-group"
               >
                 <div class="port-inputs">
                   <input
                     type="text"
-                    placeholder="请输入起运港"
+                    :placeholder="t('service.schedule.departurePort')"
                     v-model="departurePort"
                     class="port-input"
                   />
@@ -103,13 +103,13 @@
                   </div>
                   <input
                     type="text"
-                    placeholder="请输入目的港"
+                    :placeholder="t('service.schedule.destinationPort')"
                     v-model="destinationPort"
                     class="port-input"
                   />
                 </div>
-                <button class="search-btn" @click="handleCustomsSearch">
-                  <i class="fas fa-search"></i> 查询
+                <button class="search-btn" @click="handleScheduleSearch">
+                  <i class="fas fa-search"></i> {{ t('common.search') }}
                 </button>
               </div>
 
@@ -118,7 +118,7 @@
                 <div class="price-inputs">
                   <input
                     type="text"
-                    placeholder="请输入起运港"
+                    :placeholder="t('service.price.departurePort')"
                     v-model="priceOrigin"
                     class="price-input"
                   />
@@ -127,7 +127,7 @@
                   </div>
                   <input
                     type="text"
-                    placeholder="请输入目的港"
+                    :placeholder="t('service.price.destinationPort')"
                     v-model="priceDestination"
                     class="price-input"
                   />
@@ -136,20 +136,20 @@
                   </div>
                   <input
                     type="text"
-                    placeholder="请输入箱型箱量"
+                    :placeholder="t('service.price.containerInfo')"
                     v-model="priceContainer"
                     class="price-input container-input"
                   />
                 </div>
                 <button class="search-btn" @click="handlePriceSearch">
-                  <i class="fas fa-search"></i> 查询
+                  <i class="fas fa-search"></i> {{ t('common.search') }}
                 </button>
               </div>
 
-              <!-- 普通搜索框 - 修改显示条件 -->
+              <!-- 普通搜索框 -->
               <div
                 v-if="
-                  !(activeSearchTab === 'customs' && activeCustomsType === 'port') &&
+                  !(activeSearchTab === 'schedule' && activeScheduleType === 'port') &&
                   activeSearchTab !== 'price'
                 "
                 class="search-input-group"
@@ -161,7 +161,7 @@
                   class="search-input"
                 />
                 <button class="search-btn" @click="handleSearch">
-                  <i class="fas fa-search"></i> 查询
+                  <i class="fas fa-search"></i> {{ t('common.search') }}
                 </button>
               </div>
 
@@ -175,7 +175,7 @@
                   <div class="service-button-icon">
                     <i class="fab fa-weixin"></i>
                   </div>
-                  <div class="service-button-text">微信公众号</div>
+                  <div class="service-button-text">{{ t('home.services.wechat.official') }}</div>
                 </div>
                 <div
                   class="service-button"
@@ -185,19 +185,19 @@
                   <div class="service-button-icon">
                     <i class="fas fa-mobile-alt"></i>
                   </div>
-                  <div class="service-button-text">微信小程序</div>
+                  <div class="service-button-text">{{ t('home.services.wechat.miniprogram') }}</div>
                 </div>
                 <div class="service-button" @click="openCustomerService">
                   <div class="service-button-icon">
                     <i class="fas fa-headset"></i>
                   </div>
-                  <div class="service-button-text">在线客服</div>
+                  <div class="service-button-text">{{ t('home.services.customerService') }}</div>
                 </div>
               </div>
 
               <!-- 悬浮二维码显示区域 -->
               <div class="qrcode-popup" v-if="activeQrCode" :style="qrCodeStyle">
-                <img :src="getQrCodeImage()" alt="二维码" class="qrcode-image" />
+                <img :src="getQrCodeImage()" :alt="t('home.services.wechat.qrcode')" class="qrcode-image" />
               </div>
             </div>
           </div>
@@ -208,18 +208,16 @@
     <!-- 我们的服务部分 -->
     <section class="services-section">
       <div class="container">
-        <h2 class="section-title">我们的服务</h2>
+        <h2 class="section-title">{{ t('home.services.title') }}</h2>
         <div class="services-grid">
           <div class="service-card">
             <div class="service-icon">
               <i class="fas fa-ship"></i>
             </div>
-            <h3>订舱服务</h3>
-            <p>
-              针对整箱（FCL）及拼箱（LCL）国际运输，我们将根据实际情况，为您推荐所需的货物或航班，并安排最佳货运舱位。
-            </p>
+            <h3>{{ t('home.services.booking.title') }}</h3>
+            <p>{{ t('home.services.booking.description') }}</p>
             <router-link to="/service?service=booking" class="service-link"
-              >了解更多 <i class="fas fa-arrow-right"></i
+              >{{ t('common.more') }} <i class="fas fa-arrow-right"></i
             ></router-link>
           </div>
 
@@ -227,12 +225,10 @@
             <div class="service-icon">
               <i class="fas fa-file-contract"></i>
             </div>
-            <h3>通关·检查</h3>
-            <p>
-              凭借广博深厚的专业学识，以及久经流淌的丰富经验，全方位助力进出口货物合法依规，高效快捷地通过行政许可流程，确保每一次货物流转都畅行无阻。
-            </p>
+            <h3>{{ t('home.services.customs.title') }}</h3>
+            <p>{{ t('home.services.customs.description') }}</p>
             <router-link to="/service?service=customs" class="service-link"
-              >了解更多 <i class="fas fa-arrow-right"></i
+              >{{ t('common.more') }} <i class="fas fa-arrow-right"></i
             ></router-link>
           </div>
 
@@ -240,12 +236,10 @@
             <div class="service-icon">
               <i class="fas fa-warehouse"></i>
             </div>
-            <h3>仓库·配送</h3>
-            <p>
-              我们珍视客户所托，定将其重要货物妥如期送达，不负所望。同时，对于客户的细微求与特殊条件，将竭尽所能，全力提升服务品质，不负每一份信任。
-            </p>
+            <h3>{{ t('home.services.warehouse.title') }}</h3>
+            <p>{{ t('home.services.warehouse.description') }}</p>
             <router-link to="/service?service=warehouse" class="service-link"
-              >了解更多 <i class="fas fa-arrow-right"></i
+              >{{ t('common.more') }} <i class="fas fa-arrow-right"></i
             ></router-link>
           </div>
         </div>
@@ -255,7 +249,7 @@
     <!-- 将通知与船舶计划替换为资讯中心卡片轮播 -->
     <section class="news-section">
       <div class="container">
-        <h2 class="section-title">资讯中心</h2>
+        <h2 class="section-title">{{ t('news.title') }}</h2>
 
         <div class="news-carousel">
           <div class="news-cards">
@@ -268,7 +262,7 @@
               <div class="news-card-image">
                 <img
                   :src="news.image || require('@/assets/images/news-placeholder.jpg')"
-                  alt="新闻图片"
+                  :alt="t('news.imageAlt')"
                 />
               </div>
               <div class="news-card-content">
@@ -281,7 +275,7 @@
 
         <div class="view-more-container">
           <router-link to="/news" class="view-more">
-            查看更多 <i class="fas fa-angle-right"></i>
+            {{ t('common.more') }} <i class="fas fa-angle-right"></i>
           </router-link>
         </div>
       </div>
@@ -290,16 +284,16 @@
     <!-- 合作伙伴滚动 -->
     <section class="partners-section">
       <div class="container">
-        <h2 class="section-title">合作伙伴</h2>
+        <h2 class="section-title">{{ t('about.partners') }}</h2>
         <div class="partners-slider">
           <div class="partners-track track-row-1">
             <div v-for="i in 16" :key="`partner1-${i}`" class="partner-logo">
-              <img src="@/assets/images/logo.png" alt="合作伙伴" />
+              <img src="@/assets/images/logo.png" :alt="t('about.partnerLogo')" />
             </div>
           </div>
           <div class="partners-track track-row-2">
             <div v-for="i in 16" :key="`partner2-${i}`" class="partner-logo">
-              <img src="@/assets/images/logo.png" alt="合作伙伴" />
+              <img src="@/assets/images/logo.png" :alt="t('about.partnerLogo')" />
             </div>
           </div>
         </div>
@@ -311,26 +305,26 @@
       <div class="about-contact-inner">
         <div class="about-area">
           <div class="about-content">
-            <h2 class="about-title">关于我们</h2>
-            <p class="about-company">{{ aboutContent }}</p>
+            <h2 class="about-title">{{ t('about.title') }}</h2>
+            <p class="about-company">{{ t('about.companyProfile.content') }}</p>
           </div>
         </div>
         <div class="contact-area">
           <div class="contact-content">
-            <h2>联系我们</h2>
-            <p class="contact-desc">如果您在物流方面有任何想要咨询的事宜，欢迎随时与我们联系。</p>
+            <h2>{{ t('about.contact') }}</h2>
+            <p class="contact-desc">{{ t('service.inquiry.desc') }}</p>
             <div class="contact-info about-section-contact">
               <div class="contact-item">
                 <i class="fas fa-map-marker-alt"></i>
-                <span>上海市虹口区周家嘴路699号中垠广场A座9F</span>
+                <span>{{ t('footer.address') }}: {{ t('about.companyAddress') }}</span>
               </div>
               <div class="contact-item">
                 <i class="fas fa-phone-alt"></i>
-                <span>021-65143931转826</span>
+                <span>{{ t('common.phone') }}: 021-65143931转826</span>
               </div>
               <div class="contact-item">
                 <i class="fas fa-envelope"></i>
-                <span>b2b-service@walltechsystem.com</span>
+                <span>{{ t('common.email') }}: b2b-service@walltechsystem.com</span>
               </div>
             </div>
           </div>
@@ -343,6 +337,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, onBeforeUnmount, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "HomePage",
@@ -400,7 +395,7 @@ export default defineComponent({
     const searchQuery = ref("");
     const activeSearchTab = ref("tracking");
     const activeTrackingType = ref("order");
-    const activeCustomsType = ref("port");
+    const activeScheduleType = ref("port");
     const departurePort = ref("");
     const destinationPort = ref("");
 
@@ -416,15 +411,15 @@ export default defineComponent({
       activeTrackingType.value = type;
     };
 
-    const switchCustomsType = (type: string) => {
-      activeCustomsType.value = type;
+    const switchScheduleType = (type: string) => {
+      activeScheduleType.value = type;
     };
 
     const getSearchPlaceholder = () => {
       if (activeSearchTab.value === "tracking") {
         return activeTrackingType.value === "order" ? "请输入订单号" : "请输入箱号";
-      } else if (activeSearchTab.value === "customs") {
-        return activeCustomsType.value === "port" ? "请输入港口" : "请输入船名";
+      } else if (activeSearchTab.value === "schedule") {
+        return activeScheduleType.value === "port" ? "请输入港口" : "请输入船名";
       } else {
         return ""; // 运价查询不使用这个输入框了
       }
@@ -441,7 +436,7 @@ export default defineComponent({
             query: searchQuery.value,
           },
         });
-      } else if (activeSearchTab.value === "customs" && activeCustomsType.value === "vessel") {
+      } else if (activeSearchTab.value === "schedule" && activeScheduleType.value === "vessel") {
         router.push({
           path: "/schedule",
           query: {
@@ -459,8 +454,8 @@ export default defineComponent({
       }
     };
 
-    const handleCustomsSearch = () => {
-      if (activeCustomsType.value === "port") {
+    const handleScheduleSearch = () => {
+      if (activeScheduleType.value === "port") {
         if (!departurePort.value.trim() || !destinationPort.value.trim()) {
           alert("请输入起运港和目的港");
           return;
@@ -640,6 +635,8 @@ export default defineComponent({
       }
     });
 
+    const i18n = useI18n();
+
     return {
       currentSlide,
       slides,
@@ -651,15 +648,15 @@ export default defineComponent({
       searchQuery,
       activeSearchTab,
       activeTrackingType,
-      activeCustomsType,
+      activeScheduleType,
       departurePort,
       destinationPort,
       switchSearchTab,
       switchTrackingType,
-      switchCustomsType,
+      switchScheduleType,
       getSearchPlaceholder,
       handleSearch,
-      handleCustomsSearch,
+      handleScheduleSearch,
       activeQrCode,
       qrCodeStyle,
       showQrCode,
@@ -676,6 +673,7 @@ export default defineComponent({
       prevNewsSlide,
       totalNewsPages,
       newsPerPage,
+      t: i18n.t,
     };
   },
 });

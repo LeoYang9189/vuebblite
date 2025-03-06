@@ -6,11 +6,11 @@
           <div class="contact-info">
             <a href="tel:021-65143931" class="contact-item">
               <i class="fas fa-phone-alt"></i>
-              <span>客服电话: 021-65143931转826</span>
+              <span>{{ t('common.phone') }}: 021-65143931转826</span>
             </a>
             <a href="mailto:b2b-service@walltechsystem.com" class="contact-item">
               <i class="fas fa-envelope"></i>
-              <span>邮箱: b2b-service@walltechsystem.com</span>
+              <span>{{ t('common.email') }}: b2b-service@walltechsystem.com</span>
             </a>
           </div>
           <LanguageSelector />
@@ -22,25 +22,25 @@
         <div class="navbar">
           <div class="logo">
             <router-link to="/">
-              <img src="@/assets/images/logo.png" alt="B2B平台 Logo" />
+              <img src="@/assets/images/logo.png" :alt="t('about.companyProfile.title')" />
             </router-link>
           </div>
           <nav class="nav-menu">
             <ul>
               <li :class="{ active: currentRoute === '/' }">
-                <router-link to="/">首页</router-link>
+                <router-link to="/">{{ t('navigation.home') }}</router-link>
               </li>
               <li :class="{ active: currentRoute === '/tracking' }">
-                <router-link to="/tracking">货物追踪</router-link>
+                <router-link to="/tracking">{{ t('navigation.tracking') }}</router-link>
               </li>
               <li :class="{ active: currentRoute === '/service' }">
-                <router-link to="/service">业务介绍</router-link>
+                <router-link to="/service">{{ t('navigation.service') }}</router-link>
               </li>
               <li :class="{ active: currentRoute === '/news' }">
-                <router-link to="/news">资讯中心</router-link>
+                <router-link to="/news">{{ t('navigation.news') }}</router-link>
               </li>
               <li :class="{ active: currentRoute === '/about' }">
-                <router-link to="/about">关于我们</router-link>
+                <router-link to="/about">{{ t('navigation.about') }}</router-link>
               </li>
             </ul>
           </nav>
@@ -54,20 +54,20 @@
                 <template #content>
                   <a-doption @click="goToDashboard">
                     <template #icon><icon-dashboard /></template>
-                    工作台
+                    {{ t('dashboard.title') }}
                   </a-doption>
                   <a-doption @click="goToProfile">
                     <template #icon><icon-user /></template>
-                    个人资料
+                    {{ t('dashboard.profile') }}
                   </a-doption>
                   <a-doption @click="handleLogout">
                     <template #icon><icon-export /></template>
-                    退出登录
+                    {{ t('auth.logout') }}
                   </a-doption>
                 </template>
               </a-dropdown>
             </template>
-            <router-link v-else to="/login" class="btn btn-primary">注册/登录</router-link>
+            <router-link v-else to="/login" class="btn btn-primary">{{ t('navigation.login') }}</router-link>
           </div>
         </div>
       </div>
@@ -78,6 +78,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import LanguageSelector from "@/components/common/LanguageSelector.vue";
 import { IconDashboard, IconUser, IconExport, IconDown } from "@arco-design/web-vue/es/icon";
 import { Message } from "@arco-design/web-vue";
@@ -97,6 +98,7 @@ export default defineComponent({
     const router = useRouter();
     const isLoggedIn = ref(false);
     const username = ref("");
+    const { t } = useI18n();
 
     const currentRoute = computed(() => route.path);
 
@@ -130,7 +132,7 @@ export default defineComponent({
       isLoggedIn.value = false;
       username.value = "";
       
-      Message.success("已退出登录");
+      Message.success(t('auth.logoutSuccess'));
       router.push("/");
     };
 
@@ -154,7 +156,8 @@ export default defineComponent({
       username,
       goToDashboard,
       goToProfile,
-      handleLogout
+      handleLogout,
+      t
     };
   },
 });

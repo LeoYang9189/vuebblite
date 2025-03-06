@@ -6,7 +6,7 @@
         <div class="logo">
           <img src="@/assets/images/logo.png" alt="航运公司" />
         </div>
-        <h2>上海沃行航运有限公司</h2>
+        <h2>{{ t('about.companyProfile.title') }}</h2>
       </div>
 
       <div class="login-tabs">
@@ -15,64 +15,64 @@
           :class="{ active: activeTab === 'password' }"
           @click="activeTab = 'password'"
         >
-          账号密码登录
+          {{ t('auth.loginWith', ['密码']) }}
         </div>
         <div
           class="tab-item"
           :class="{ active: activeTab === 'code' }"
           @click="activeTab = 'code'"
         >
-          验证码登录
+          {{ t('auth.loginWith', ['验证码']) }}
         </div>
       </div>
 
       <!-- 账号密码登录表单 -->
       <div v-if="activeTab === 'password'">
         <div class="form-group">
-          <div class="form-label">手机/邮箱</div>
+          <div class="form-label">{{ t('auth.phoneOrEmail') }}</div>
           <input
             type="text"
             class="form-input"
             v-model="passwordForm.username"
-            placeholder="请输入您的手机/邮箱"
+            :placeholder="t('common.pleaseInput') + t('auth.phoneOrEmail')"
           />
         </div>
 
         <div class="form-group">
-          <div class="form-label">密码</div>
+          <div class="form-label">{{ t('auth.password') }}</div>
           <input
             type="password"
             class="form-input"
             v-model="passwordForm.password"
-            placeholder="请输入密码"
+            :placeholder="t('common.pleaseInput') + t('auth.password')"
           />
         </div>
 
         <button class="login-button" @click="handlePasswordSubmit" :disabled="loading">
-          {{ loading ? "登录中..." : "登录" }}
+          {{ loading ? t('common.loading') : t('auth.login') }}
         </button>
       </div>
 
       <!-- 验证码登录表单 -->
       <div v-if="activeTab === 'code'">
         <div class="form-group">
-          <div class="form-label">手机/邮箱</div>
+          <div class="form-label">{{ t('auth.phoneOrEmail') }}</div>
           <input
             type="text"
             class="form-input"
             v-model="codeForm.username"
-            placeholder="请输入您的手机/邮箱"
+            :placeholder="t('common.pleaseInput') + t('auth.phoneOrEmail')"
           />
         </div>
 
         <div class="form-group">
-          <div class="form-label">短信/邮件验证码</div>
+          <div class="form-label">{{ t('auth.verifyCode') }}</div>
           <div class="verify-code-group">
             <input
               type="text"
               class="form-input"
               v-model="codeForm.verifyCode"
-              placeholder="请输入验证码"
+              :placeholder="t('common.pleaseInput') + t('auth.verifyCode')"
             />
             <button
               type="button"
@@ -80,19 +80,19 @@
               @click="getVerifyCode"
               :disabled="loading || !!countdown"
             >
-              {{ countdown ? `${countdown}s` : "获取验证码" }}
+              {{ countdown ? `${countdown}s` : t('auth.getVerifyCode') }}
             </button>
           </div>
         </div>
 
         <button class="login-button" @click="handleCodeSubmit" :disabled="loading">
-          {{ loading ? "登录中..." : "登录" }}
+          {{ loading ? t('common.loading') : t('auth.login') }}
         </button>
       </div>
 
       <div class="login-links">
-        <span>新用户?</span>
-        <router-link to="/register">立即注册</router-link>
+        <span>{{ t('auth.noAccount') }}</span>
+        <router-link to="/register">{{ t('auth.register') }}</router-link>
       </div>
     </div>
   </div>
@@ -100,6 +100,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";
 
@@ -107,6 +108,7 @@ export default defineComponent({
   name: "LoginPage",
   setup() {
     const router = useRouter();
+    const { t } = useI18n();
     const loading = ref(false);
     const countdown = ref(0);
     const activeTab = ref("password");
@@ -126,14 +128,14 @@ export default defineComponent({
     const getVerifyCode = async () => {
       try {
         if (!codeForm.username) {
-          Message.warning("请先输入手机号或邮箱");
+          Message.warning(t('common.pleaseInput') + t('auth.phoneOrEmail'));
           return;
         }
 
         loading.value = true;
         // TODO: 调用发送验证码接口
         await new Promise(resolve => setTimeout(resolve, 1000));
-        Message.success("验证码已发送");
+        Message.success(t('common.success'));
 
         // 开始倒计时
         countdown.value = 60;
@@ -144,7 +146,7 @@ export default defineComponent({
           }
         }, 1000);
       } catch (error) {
-        Message.error("验证码发送失败");
+        Message.error(t('common.failed'));
       } finally {
         loading.value = false;
       }
@@ -154,11 +156,11 @@ export default defineComponent({
       try {
         // 表单验证
         if (!passwordForm.username) {
-          Message.warning("请输入手机号或邮箱");
+          Message.warning(t('common.pleaseInput') + t('auth.phoneOrEmail'));
           return;
         }
         if (!passwordForm.password) {
-          Message.warning("请输入密码");
+          Message.warning(t('common.pleaseInput') + t('auth.password'));
           return;
         }
         
@@ -172,13 +174,13 @@ export default defineComponent({
           localStorage.setItem('userRole', 'admin');
           
           await new Promise(resolve => setTimeout(resolve, 1000));
-          Message.success("登录成功");
+          Message.success(t('common.success'));
           router.push("/dashboard/profile");
         } else {
-          throw new Error("用户名或密码错误");
+          throw new Error(t('auth.failed'));
         }
       } catch (error) {
-        Message.error(error instanceof Error ? error.message : "登录失败");
+        Message.error(error instanceof Error ? error.message : t('common.failed'));
       } finally {
         loading.value = false;
       }
@@ -188,11 +190,11 @@ export default defineComponent({
       try {
         // 表单验证
         if (!codeForm.username) {
-          Message.warning("请输入手机号或邮箱");
+          Message.warning(t('common.pleaseInput') + t('auth.phoneOrEmail'));
           return;
         }
         if (!codeForm.verifyCode) {
-          Message.warning("请输入验证码");
+          Message.warning(t('common.pleaseInput') + t('auth.verifyCode'));
           return;
         }
         
@@ -206,13 +208,13 @@ export default defineComponent({
           localStorage.setItem('userRole', 'admin');
           
           await new Promise(resolve => setTimeout(resolve, 1000));
-          Message.success("登录成功");
+          Message.success(t('common.success'));
           router.push("/dashboard/profile");
         } else {
-          throw new Error("用户名或验证码错误");
+          throw new Error(t('auth.failed'));
         }
       } catch (error) {
-        Message.error(error instanceof Error ? error.message : "登录失败");
+        Message.error(error instanceof Error ? error.message : t('common.failed'));
       } finally {
         loading.value = false;
       }
@@ -227,6 +229,7 @@ export default defineComponent({
       handlePasswordSubmit,
       handleCodeSubmit,
       getVerifyCode,
+      t
     };
   },
 });

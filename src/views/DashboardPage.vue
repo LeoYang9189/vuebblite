@@ -11,7 +11,7 @@
       >
         <div class="logo">
           <router-link to="/">
-            <img src="@/assets/images/logo.png" alt="Logo" />
+            <img src="@/assets/images/logo.png" :alt="t('about.companyProfile.title')" />
           </router-link>
         </div>
         
@@ -21,7 +21,7 @@
           <div class="menu-item" :class="{ active: isActive('profile') }">
             <router-link to="/dashboard/profile" class="menu-link">
               <span class="menu-icon"><icon-user /></span>
-              <span v-if="!collapsed" class="menu-text">个人资料</span>
+              <span v-if="!collapsed" class="menu-text">{{ t('dashboard.profile') }}</span>
             </router-link>
           </div>
           
@@ -29,7 +29,7 @@
           <div class="sub-menu" :class="{ open: isOpen('company') }">
             <div class="sub-menu-title" @click="toggleSubMenu('company')">
               <span class="menu-icon"><icon-apps /></span>
-              <span v-if="!collapsed" class="menu-text">企业信息</span>
+              <span v-if="!collapsed" class="menu-text">{{ t('dashboard.company') }}</span>
               <span v-if="!collapsed" class="arrow">
                 <icon-down v-if="isOpen('company')" />
                 <icon-right v-else />
@@ -37,13 +37,13 @@
             </div>
             <div class="sub-menu-content" v-show="!collapsed && isOpen('company')">
               <div class="sub-menu-item" :class="{ active: isActive('company-certification') }">
-                <router-link to="/dashboard/company/certification">企业认证</router-link>
+                <router-link to="/dashboard/company/certification">{{ t('dashboard.companyVerification') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('company-info') }">
-                <router-link to="/dashboard/company/info">我的企业</router-link>
+                <router-link to="/dashboard/company/info">{{ t('dashboard.myCompany') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('company-account') }">
-                <router-link to="/dashboard/company/account">企业账户</router-link>
+                <router-link to="/dashboard/company/account">{{ t('dashboard.companyAccount') }}</router-link>
               </div>
             </div>
           </div>
@@ -52,7 +52,7 @@
           <div class="sub-menu" :class="{ open: isOpen('orders') }">
             <div class="sub-menu-title" @click="toggleSubMenu('orders')">
               <span class="menu-icon"><icon-file /></span>
-              <span v-if="!collapsed" class="menu-text">订单管理</span>
+              <span v-if="!collapsed" class="menu-text">{{ t('dashboard.orders') }}</span>
               <span v-if="!collapsed" class="arrow">
                 <icon-down v-if="isOpen('orders')" />
                 <icon-right v-else />
@@ -60,7 +60,7 @@
             </div>
             <div class="sub-menu-content" v-show="!collapsed && isOpen('orders')">
               <div class="sub-menu-item" :class="{ active: isActive('forecast-orders') }">
-                <router-link to="/dashboard/orders/forecast">预报订单</router-link>
+                <router-link to="/dashboard/orders/forecast">{{ t('dashboard.forecastOrders') }}</router-link>
               </div>
             </div>
           </div>
@@ -69,7 +69,7 @@
           <div class="sub-menu" :class="{ open: isOpen('finance') }">
             <div class="sub-menu-title" @click="toggleSubMenu('finance')">
               <span class="menu-icon"><icon-calendar /></span>
-              <span v-if="!collapsed" class="menu-text">财务管理</span>
+              <span v-if="!collapsed" class="menu-text">{{ t('dashboard.finance') }}</span>
               <span v-if="!collapsed" class="arrow">
                 <icon-down v-if="isOpen('finance')" />
                 <icon-right v-else />
@@ -77,13 +77,13 @@
             </div>
             <div class="sub-menu-content" v-show="!collapsed && isOpen('finance')">
               <div class="sub-menu-item" :class="{ active: isActive('bill-list') }">
-                <router-link to="/dashboard/finance/bill-list">账单列表</router-link>
+                <router-link to="/dashboard/finance/bill-list">{{ t('dashboard.billList') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('foreign-bill') }">
-                <router-link to="/dashboard/finance/foreign-bill">国外账单</router-link>
+                <router-link to="/dashboard/finance/foreign-bill">{{ t('dashboard.foreignBill') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('invoice-list') }">
-                <router-link to="/dashboard/finance/invoice-list">发票列表</router-link>
+                <router-link to="/dashboard/finance/invoice-list">{{ t('dashboard.invoiceList') }}</router-link>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@
           <div class="sub-menu" :class="{ open: isOpen('enterprise') }">
             <div class="sub-menu-title" @click="toggleSubMenu('enterprise')">
               <span class="menu-icon"><icon-user-group /></span>
-              <span v-if="!collapsed" class="menu-text">企业管理</span>
+              <span v-if="!collapsed" class="menu-text">{{ t('dashboard.enterpriseManagement') }}</span>
               <span v-if="!collapsed" class="arrow">
                 <icon-down v-if="isOpen('enterprise')" />
                 <icon-right v-else />
@@ -100,13 +100,13 @@
             </div>
             <div class="sub-menu-content" v-show="!collapsed && isOpen('enterprise')">
               <div class="sub-menu-item" :class="{ active: isActive('certified-enterprise') }">
-                <router-link to="/dashboard/company/verified">已认证企业</router-link>
+                <router-link to="/dashboard/company/verified">{{ t('dashboard.verifiedCompanies') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('pending-enterprise') }">
-                <router-link to="/dashboard/enterprise/pending">待审核企业</router-link>
+                <router-link to="/dashboard/enterprise/pending">{{ t('dashboard.pendingCompanies') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('enterprise-account') }">
-                <router-link to="/dashboard/enterprise/account">企业账号</router-link>
+                <router-link to="/dashboard/enterprise/account">{{ t('dashboard.enterpriseAccounts') }}</router-link>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@
           <div class="sub-menu" :class="{ open: isOpen('system') }">
             <div class="sub-menu-title" @click="toggleSubMenu('system')">
               <span class="menu-icon"><icon-settings /></span>
-              <span v-if="!collapsed" class="menu-text">系统管理</span>
+              <span v-if="!collapsed" class="menu-text">{{ t('dashboard.system') }}</span>
               <span v-if="!collapsed" class="arrow">
                 <icon-down v-if="isOpen('system')" />
                 <icon-right v-else />
@@ -123,13 +123,13 @@
             </div>
             <div class="sub-menu-content" v-show="!collapsed && isOpen('system')">
               <div class="sub-menu-item" :class="{ active: isActive('operation-account') }">
-                <router-link to="/dashboard/system/operation-account">运营账号</router-link>
+                <router-link to="/dashboard/system/operation-account">{{ t('dashboard.operationAccounts') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('permission-management') }">
-                <router-link to="/dashboard/system/permission">权限管理</router-link>
+                <router-link to="/dashboard/system/permission">{{ t('dashboard.permissionManagement') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('custom-config') }">
-                <router-link to="/dashboard/system/config">个性化配置</router-link>
+                <router-link to="/dashboard/system/config">{{ t('dashboard.customConfig') }}</router-link>
               </div>
             </div>
           </div>
@@ -138,7 +138,7 @@
           <div class="sub-menu" :class="{ open: isOpen('operation') }">
             <div class="sub-menu-title" @click="toggleSubMenu('operation')">
               <span class="menu-icon"><icon-dashboard /></span>
-              <span v-if="!collapsed" class="menu-text">运营管理</span>
+              <span v-if="!collapsed" class="menu-text">{{ t('dashboard.operationManagement') }}</span>
               <span v-if="!collapsed" class="arrow">
                 <icon-down v-if="isOpen('operation')" />
                 <icon-right v-else />
@@ -146,10 +146,10 @@
             </div>
             <div class="sub-menu-content" v-show="!collapsed && isOpen('operation')">
               <div class="sub-menu-item" :class="{ active: isActive('news-category') }">
-                <router-link to="/dashboard/operation/news-category">资讯类别</router-link>
+                <router-link to="/dashboard/operation/news-category">{{ t('dashboard.newsCategory') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('news-management') }">
-                <router-link to="/dashboard/operation/news-management">资讯管理</router-link>
+                <router-link to="/dashboard/operation/news-management">{{ t('dashboard.newsManagement') }}</router-link>
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@
           <div class="sub-menu" :class="{ open: isOpen('message') }">
             <div class="sub-menu-title" @click="toggleSubMenu('message')">
               <span class="menu-icon"><icon-message /></span>
-              <span v-if="!collapsed" class="menu-text">站内信</span>
+              <span v-if="!collapsed" class="menu-text">{{ t('dashboard.message') }}</span>
               <span v-if="!collapsed" class="arrow">
                 <icon-down v-if="isOpen('message')" />
                 <icon-right v-else />
@@ -166,10 +166,10 @@
             </div>
             <div class="sub-menu-content" v-show="!collapsed && isOpen('message')">
               <div class="sub-menu-item" :class="{ active: isActive('inbox') }">
-                <router-link to="/dashboard/message/inbox">收件箱</router-link>
+                <router-link to="/dashboard/message/inbox">{{ t('dashboard.inbox') }}</router-link>
               </div>
               <div class="sub-menu-item" :class="{ active: isActive('message-settings') }">
-                <router-link to="/dashboard/message/settings">消息设置</router-link>
+                <router-link to="/dashboard/message/settings">{{ t('dashboard.messageSettings') }}</router-link>
               </div>
             </div>
           </div>
@@ -187,9 +187,11 @@
                 v-model="currentLang"
                 :style="{ width: '100px' }"
                 size="small"
+                @change="handleLanguageChange"
               >
-                <a-option value="zh-CN">中文</a-option>
-                <a-option value="en-US">English</a-option>
+                <a-option value="zh">中文</a-option>
+                <a-option value="en">English</a-option>
+                <a-option value="jp">日本語</a-option>
               </a-select>
               <a-dropdown trigger="click">
                 <a-space>
@@ -202,11 +204,11 @@
                 <template #content>
                   <a-doption @click="goToProfile">
                     <template #icon><icon-user /></template>
-                    个人资料
+                    {{ t('dashboard.profile') }}
                   </a-doption>
                   <a-doption @click="handleLogout">
                     <template #icon><icon-export /></template>
-                    退出登录
+                    {{ t('auth.logout') }}
                   </a-doption>
                 </template>
               </a-dropdown>
@@ -224,6 +226,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { useI18n } from "vue-i18n";
 import { Message } from "@arco-design/web-vue";
 import {
   IconDashboard,
@@ -261,9 +264,10 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const { t, locale } = useI18n();
     const collapsed = ref(false);
     const username = ref("yunying");
-    const currentLang = ref("zh-CN");
+    const currentLang = ref(locale.value);
     const openKeys = ref(["company"]);
 
     onMounted(() => {
@@ -329,8 +333,14 @@ export default defineComponent({
       localStorage.removeItem("username");
       localStorage.removeItem("userRole");
       
-      Message.success("已退出登录");
+      Message.success(t('auth.logoutSuccess'));
       router.push("/login");
+    };
+
+    const handleLanguageChange = (value: string) => {
+      locale.value = value;
+      localStorage.setItem("preferredLanguage", value);
+      Message.success(t('common.languageChanged'));
     };
 
     return {
@@ -344,6 +354,8 @@ export default defineComponent({
       toggleSubMenu,
       isOpen,
       isActive,
+      handleLanguageChange,
+      t
     };
   },
 });

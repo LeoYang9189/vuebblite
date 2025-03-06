@@ -12,6 +12,7 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useI18n } from "vue-i18n";
 import TheHeader from "@/components/layout/TheHeader.vue";
 import TheFooter from "@/components/layout/TheFooter.vue";
 import FloatingService from "@/components/layout/FloatingService.vue";
@@ -25,13 +26,15 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
+    const { t } = useI18n();
     
     const isInDashboard = computed(() => {
       return route.path.startsWith('/dashboard');
     });
     
     return {
-      isInDashboard
+      isInDashboard,
+      t
     };
   }
 });

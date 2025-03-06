@@ -5,7 +5,7 @@
       <div class="banner-overlay"></div>
       <div class="container">
         <div class="banner-content">
-          <h2 class="banner-title">资讯中心</h2>
+          <h2 class="banner-title">{{ t('news.title') }}</h2>
         </div>
       </div>
     </section>
@@ -37,10 +37,10 @@
 
       <!-- 新的卡片式布局 -->
       <div class="news-filter">
-        <div class="filter-item active">全部</div>
-        <div class="filter-item">公司新闻</div>
-        <div class="filter-item">行业动态</div>
-        <div class="filter-item">政策法规</div>
+        <div class="filter-item active">{{ t('news.categories.all') }}</div>
+        <div class="filter-item">{{ t('news.categories.company') }}</div>
+        <div class="filter-item">{{ t('news.categories.industry') }}</div>
+        <div class="filter-item">{{ t('news.categories.policy') }}</div>
       </div>
 
       <div class="news-cards">
@@ -53,7 +53,7 @@
           <div class="news-card-image">
             <img
               :src="news.image || require('@/assets/images/news-placeholder.jpg')"
-              alt="新闻图片"
+              :alt="t('news.imageAlt')"
             />
           </div>
           <div class="news-card-content">
@@ -93,11 +93,13 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "NewsPage",
   setup() {
     const router = useRouter();
+    const { t } = useI18n();
 
     // 当前页码
     const currentPage = ref(1);
@@ -107,72 +109,72 @@ export default defineComponent({
     const newsCards = ref([
       {
         id: 1,
-        title: "[货代物流] 非凡十年！直挂云帆济沧海",
-        summary: "关心海洋、认识海洋、经略海洋！中国经济的腾飞，与海洋密不可分。",
+        title: t('news.articles.article1.title'),
+        summary: t('news.articles.article1.summary'),
         author: "张琦",
         date: "2024-08-09 09:47:35",
         image: require("@/assets/images/news-placeholder.jpg"),
       },
       {
         id: 2,
-        title: "[系统更新通知] Cargoware B2B系统资讯模块上线啦",
-        summary: "Cargoware B2B系统更新了资讯中心，线下订单查看等功能，欢迎尝鲜",
+        title: t('news.articles.article2.title'),
+        summary: t('news.articles.article2.summary'),
         author: "admin",
         date: "2022-07-13 15:19:51",
         image: require("@/assets/images/news-placeholder.jpg"),
       },
       {
         id: 3,
-        title: "[货代物流] 物流货代汇率跌至近20年低位",
-        summary: "欧元也到20年低位了!! 欧元对美元汇率跌至近20年低位",
+        title: t('news.articles.article3.title'),
+        summary: t('news.articles.article3.summary'),
         author: "无",
         date: "2022-07-12 10:30:08",
         image: require("@/assets/images/news-placeholder.jpg"),
       },
       {
         id: 4,
-        title: "[航运动态] 亚洲至美西航线运价双周上涨11.2%",
-        summary: "美国西海岸港口拥堵情况继续改善，但随着旺季到来，航运需求有所回升",
+        title: t('news.articles.article4.title'),
+        summary: t('news.articles.article4.summary'),
         author: "李明",
         date: "2022-06-28 14:23:45",
         image: require("@/assets/images/news-placeholder.jpg"),
       },
       {
         id: 5,
-        title: "[政策解读] 中国出口管制新规对航运业影响分析",
-        summary: "最新发布的出口管制新规将对特定货物的运输产生重要影响，企业需提前准备",
+        title: t('news.articles.article5.title'),
+        summary: t('news.articles.article5.summary'),
         author: "王晓",
         date: "2022-06-15 09:15:30",
         image: require("@/assets/images/news-placeholder.jpg"),
       },
       {
         id: 6,
-        title: "[行业分析] 集装箱短缺问题持续，何时能够缓解？",
-        summary: "全球集装箱短缺问题已持续一年多，本文分析短缺原因及未来缓解时间",
+        title: t('news.articles.article6.title'),
+        summary: t('news.articles.article6.summary'),
         author: "赵华",
         date: "2022-05-22 16:40:12",
         image: require("@/assets/images/news-placeholder.jpg"),
       },
       {
         id: 7,
-        title: "[货主须知] 如何降低海运延误风险的五大策略",
-        summary: "在当前全球供应链不稳定的情况下，货主可采取哪些措施降低延误风险",
+        title: t('news.articles.article7.title'),
+        summary: t('news.articles.article7.summary'),
         author: "陈方",
         date: "2022-05-10 11:25:38",
         image: require("@/assets/images/news-placeholder.jpg"),
       },
       {
         id: 8,
-        title: "[公司新闻] 我司成功中标某大型国企物流服务项目",
-        summary: "经过激烈竞争，我司凭借优质服务和创新解决方案成功中标",
+        title: t('news.articles.article8.title'),
+        summary: t('news.articles.article8.summary'),
         author: "秦明",
         date: "2022-04-28 15:36:22",
         image: require("@/assets/images/news-placeholder.jpg"),
       },
       {
         id: 9,
-        title: "[技术革新] 区块链技术如何改变传统航运单证流程",
-        summary: "区块链技术在航运单证处理中的应用正日益广泛，将大幅提升效率",
+        title: t('news.articles.article9.title'),
+        summary: t('news.articles.article9.summary'),
         author: "杨科",
         date: "2022-04-15 10:18:55",
         image: require("@/assets/images/news-placeholder.jpg"),
@@ -199,6 +201,7 @@ export default defineComponent({
       newsCards,
       goToNewsDetail,
       goToPage,
+      t,
     };
   },
 });
