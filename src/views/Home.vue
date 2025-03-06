@@ -349,9 +349,9 @@ export default defineComponent({
     ]);
 
     const heroContent = ref({
-      title: "这里是您公司的主Slogan",
+      title: "SloganSloganSloganSlogan",
       subtitle:
-        "这里是您的副Slogan,示例文字可以多一点<br>注意!注意！轻量版没有下面搜索框里的运价查询！！其他没差别！！",
+        "slogan detailslogan detailslogan detailslogan detailslogan detailslogan detailslogan detail",
     });
 
     const aboutContent = ref(
